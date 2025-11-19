@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>考生服務網</title>
+    <style>
+        body {
+            /* 背景色 */
+            background-color: rgb(199, 235, 241);
+            /* 背景圖片 */
+            /* background-image: url(data:image/png;base64,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); */
+            /* background-image: url('images/bg.jpg'); */
+            /* 漸層色背景 */
+            background-image: linear-gradient(90deg, #fff , rgb(167, 233, 238));
+            /* 堆疊方式 */
+            background-repeat: repeat-y;
+            /* 位置 */
+            /* background-position: center center; */
+            /* 固定背景 */
+            background-attachment: fixed;
+        }
+        h1 {
+            color: blue;
+        }
+        h2 {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<img src="images/logo.gif" alt="">
+
+<h1>考生服務網</h1>
+
+<img src="images/line.gif" alt="">
+
+<p>今天日期：2025-11-19</p>
+
+<h2>最新消息</h2>
+
+<ul>
+    <li>98年度3月份ITE經濟部資訊專業人員鑑定、EEC企業電子化人才能力鑑定考試公告(2009/2/19)</li>
+    <li>「財團法人中華民國電腦技能基金會獎學金」錄取名單將於3月10日公告，敬請留意！(2009/2/19)</li>
+    <li>【恭賀】97年度TQC認證共10項目獲得教育部採認推薦(2009/1/23)</li>
+    <li>專業證照教師研習營-Linux維運管理專業人員，報名至2月9日止(2009/1/22)</li>
+    <li>【2009新服務開張】本會與104理工人才銀行合作，開通TQC、ITE、EEC證照線上驗證服務 (2009/1/21)</li>
+    <li>ITE嵌入式系統類教師研習暨認證活動，即日起開放報名！(2009/1/13)</li>
+    <li>98年e-office專業人員寒假教師研習活動，1/6開放報名(2009/1/7)</li>
+    <li>公告本會受理身心障礙者參加TQC認證報名費補助原則(2008/12/18)</li>
+    <li>大學生 證照多一點、求職順一點 (2008/12/17)</li>
+    <li>大仁資管系 今年拿209張證照 (2008/12/17)</li>
+    <li>TQC授權訓練中心(TATC)線上申請</li>
+</ul>
+
+<hr>
+
+<h2>新書登場</h2>
+
+<ul>
+    <li>Excel 2007實力養成暨評量解題秘笈 - 松崗 - (2009/2/15)</li>
+    <li>Excel 2007實力養成暨評量解題秘笈 - 碁峰 - (2009/2/15)</li>
+    <li>Excel 2007實力養成暨評量解題秘笈 - 全華 - (2009/2/15)</li>
+    <li>Access 2007實力養成暨評量 - 碁峰 - (2009/1/16)</li>
+    <li>Access 2007實力養成暨評量 - 松崗 - (2009/1/16)</li>
+</ul>
+
+<hr>
+
+<h2>認證課程</h2>
+
+<ul>
+    <li>TQC-WORD實務班</li>
+    <li>電腦文書網路應用班</li>
+    <li>ACE解題輔導班</li>
+    <li>資料庫程式設計訓練</li>
+    <li>ILLSTRATOR 美工設計班</li>
+    <li>TQC-Photo Impact認證班</li>
+    <li>Pro-E Wildfire初階實體繪畫班</li>
+    <li>windows基礎班</li>
+</ul>
+
+<img src="images/line.gif" alt="">
+
+<p>2003-2010(&copy;) 中華民國電腦技能基金會</p>
+
+</body>
+</html>
