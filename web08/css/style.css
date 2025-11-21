@@ -1,0 +1,19 @@
+body {
+    background-color: #000;
+}
+#nav {
+    width: 150px;
+    float: left;
+    background-color: #000;
+}
+#top {
+    background-image: url(../images/top.gif);
+    height: 48px;
+    background-repeat: no-repeat;
+    margin-left: 150px;
+}
+#main {
+    background-color: #fff;
+    margin: 0 10px 0 160px;
+    padding: 0 20px;
+}
