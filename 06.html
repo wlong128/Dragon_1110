@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+    <script>
+        // alert 是一個用來顯示彈出視窗的函式
+        // alert("Hello, World!");
+        console.log("I'm a log message from Javascript!");
+        console.log(2+4*5-6/8*9)
+
+        // 使用 document.write() 方法寫入一個標題
+        document.write('<h2>這是使用 document.write() 方法寫入的標題</h2>');
+
+        // 全域變數
+        // var x = 2;
+
+        // 區域變數
+        let x = 2;
+        let y = 5;
+
+        console.log(x*x + x + 1);
+
+        x = 3;
+
+        console.log(x*x + x + 1);
+
+        x = 4;
+
+        console.log(x*x + y + 1);
+
+        
+
+    </script>
+</head>
+<body>
+    <h1>Javascript</h1>
+
+    <p id="test">我是測試用的段落</p>
+
+    <h2>變數</h2>
+
+    變數是用來儲存資料的容器，可以用來存放數字、文字、布林值等各種資料型態。<br>
+    在 Javascript 中，可以使用 var、let 或 const 關鍵字來宣告變數。<br><br>
+
+    x<sup>2</sup> + x + 1<br><br>
+
+    上面的 x 就是一個變數，可以用來表示一個未知的數值。<br>
+    1 是一個常數，可以用來表示數字 1。<br><br>
+
+    x=2; 2*2 + 2 + 1 = 7
+
+    <script>
+        // 再次使用 alert 函式顯示訊息
+        // alert("I'm Javascript!");
+
+        // 使用 document.write() 方法寫入另一個標題
+        document.write('<h2 style="color:red;">這是另一個使用 document.write() 方法寫入的標題</h2>');
+
+        // 動態修改第1個 h1 標題的顏色為綠色
+        document.getElementsByTagName('h1')[0].style.color = 'green';
+
+        // 動態修改 id 為 test 的段落文字顏色為藍色
+        document.getElementById('test').style.color = 'blue';
+
+        hello();
+
+        function hello() {
+            let x = 100;
+            console.log(x);
+            console.log(document.getElementById('test').innerText);
+        }
+
+        console.log(x);
+
+        hello();
+    </script>
+
+</body>
+</html>
