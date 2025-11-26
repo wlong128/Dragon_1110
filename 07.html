@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>第7堂</h1>
+    <h2>自訂函數</h2>
+    <p>函數是用來封裝一段可以重複使用的程式碼區塊，可以用來執行特定的任務或計算。</p>
+    <p>在 Javascript 中，可以使用 function 關鍵字來宣告一個函數。</p>
+    <!-- 純文字輸出內容 -->
+    <pre>
+        // 副程式
+        function 函數名稱(參數) {
+            // 函數內的程式碼
+            // 不需要回傳
+        }
+    </pre>
+    <!-- #ms01 當成顯示結果的區域 -->
+    <p id="msg01">結果將顯示在此</p>
+    <!-- 文字方塊 -->
+    <input type="text" name="" id="myText" value="" placeholder="請輸入訊息">
+    <!-- 按鈕 -->
+    <button onclick="showMessage()">執行</button>
+
+    <h2>有回傳值的函數</h2>
+    <p>有回傳值的函數可以使用 return 關鍵字來回傳一個值，這個值可以被呼叫函數的地方接收並使用。</p>
+    <pre>
+        // 有回傳值的函數
+        function 函數名稱(參數) {
+            // 函數內的程式碼
+            return 回傳值;
+        }
+    </pre>
+    <!-- #ms02 當成顯示結果的區域 -->
+    <p id="msg02">結果顯示於此</p>
+    <!-- 按鈕 -->
+    <input type="button" value="計算" 
+           onclick="document.getElementById('msg02').innerText = sum(1,1)">
+    <!-- <input type="button" value="計算" onclick="2"> -->
+
+
+    <h2>MVC</h2>
+    <p>MVC 是一種軟體設計模式，用來將應用程式分成三個主要部分：
+        模型 (Model)、視圖 (View) 和控制器 (Controller)。</p>
+
+    <h2>變數與常數</h2>
+    <p>變數是用來儲存資料的容器，可以用來存放數字、文字、布林值等各種資料型態。</p>
+    <p>在 Javascript 中，可以使用 var、let 或 const 關鍵字來宣告變數。</p>
+    <p id="msg03">MSG</p>
+
+    <h2>物件</h2>
+    <p>物件是用來表示具有屬性和方法的實體，可以用來封裝相關的資料和行為。</p>
+    <pre>
+        var car = {
+            color: "red",
+            model: "Toyota",
+            year: 2020,
+            start: function() {
+                return "This car is starting.";
+            },
+            stop: function() {
+                return "This car is stopping.";
+            }
+        }
+    </pre>
+    <p id="msg04">Car Message</p>
+
+    <h2>陣列</h2>
+    <p>陣列是用來儲存多個值的資料結構，可以用來表示一組相關的資料。</p>
+    <pre>
+        var chinese_scores = [85, 90, 78, 92, 88, 76, 95, 89, 84, 91];
+        var math_scores = [80, 75, 88, 95, 91, 82, 87, 90, 93, 78];
+        var english_scores = [90, 85, 87, 93, 89, 92, 88, 91, 86, 94];
+    </pre>
+    <p id="msg05">Array Message</p>
+
+    <h2>判斷式</h2>
+    <p>判斷式是用來根據條件執行不同程式碼區塊的結構，可以用來實現分支邏輯。</p>
+    <h3>IF 判斷</h3>
+    <pre>
+        if (條件) {
+            // 條件為真時執行的程式碼
+        } else {
+            // 條件為假時執行的程式碼
+        }
+    </pre>
+    <h3>多條件 IF 判斷</h3>
+    <pre>
+        if (條件1) {
+            // 條件1 為真時執行的程式碼
+        } else if (條件2) {
+            // 條件2 為真時執行的程式碼
+        } else {
+            // 以上條件皆不為真時執行的程式碼
+        }
+    </pre>
+    <input type="number" name="" id="score" placeholder="請輸入分數">
+    <button onclick="checkScore()">檢查分數</button>
+
+    <p>如果時間早於20:00，會顯示 "Good day"。</p>
+    <button onclick="myFunction()">請按這裡</button>
+    <p id="demo"></p>
+    <script>
+        function myFunction() {
+            var x="Good evening";
+            var time=new Date().getHours();
+            console.log("time =",time);
+            if (time < 17) {
+                x="Good day";
+            }
+            document.getElementById("demo").innerHTML=x;
+            console.log("x =",x);
+        }
+        // 判斷式
+        function checkScore() {
+            let score = document.getElementById("score").value;
+            if (score == 100) {
+                alert("滿分");
+            } else if (score >= 90) {
+                alert("優等");
+            } else if (score >= 80) {
+                alert("甲等");
+            } else if (score >= 70) {
+                alert("乙等");
+            } else if (score >= 60) {
+                alert("及格");
+            } else if (score >= 50) {
+                alert("補考");
+            } else {
+                alert("不及格");
+            }
+        }
+
+
+        var cars1 = "FORD";
+        var cars2 = "TOYOTA";
+        var cars3 = "MAZDA";
+        document.getElementById("msg05").innerText = 
+            "Car 1: " + cars1 + ", Car 2: " + cars2 + ", Car 3: " + cars3;
+
+        var cars = ["FORD", "TOYOTA", "MAZDA"];
+
+        console.log("cars",cars.join());
+        cars.sort();
+        console.log("cars",cars.join());
+        cars.reverse();
+        console.log("cars",cars.join());
+        document.getElementById("msg05").innerText += 
+            "\nCar Array: " + cars[0] + ", " + cars[1] + ", " + cars[2];
+
+        var chinese_scores = [85, 90, 78, 92, 88, 76, 95, 89, 84, 91];
+        var math_scores = [80, 75, 88, 95, 91, 82, 87, 90, 93, 78];
+        var english_scores = [90, 85, 87, 93, 89, 92, 88, 91, 86, 94];
+
+        console.log("chinese",chinese_scores.length);
+        console.log("math",math_scores.indexOf(100)); // 查找元素的位置，找不到回傳 -1
+        console.log("english",english_scores.join());
+        english_scores.sort(function(a,b){return a-b}); // 陣列排序(由小到大)
+        console.log("english",english_scores.join());
+        english_scores.reverse(); // 陣列反轉
+        console.log("english",english_scores.join());
+
+        english_scores.push(100); // 在陣列末尾添加一個新元素
+        console.log("english",english_scores.join());
+        english_scores.unshift(99); // 在陣列開頭添加一個新元素
+        console.log("english",english_scores.join());
+        english_scores.pop() // 移除陣列末尾的元素
+        console.log("english",english_scores.join());
+        english_scores.shift(); // 移除陣列開頭的元素
+        console.log("english",english_scores.join());
+
+        document.getElementById("msg05").innerHTML = chinese_scores[0]+math_scores[0]+english_scores[0] + "<br>";
+        document.getElementById("msg05").innerHTML += (chinese_scores[0]+math_scores[0]+english_scores[0])/3;
+
+        var cars2 = [
+            {model: "Ford", color: "red", year: 2020},
+            {model: "Toyota", color: "blue", year: 2019},
+            {model: "Mazda", color: "green", year: 2021}
+        ];
+
+        console.log("cars2",cars2.length);
+
+        document.getElementById("msg05").innerHTML += "<br>" + cars2[1].model + ", " + cars2[1].color + ", " + cars2[1].year;
+
+
+        let a = 10;
+        var b = 20;
+        const PI = 3.14159;
+        a = 50;
+        // PI = 3.14; (錯誤，常數不能被重新賦值)
+        let total = sum(a, PI);
+        document.getElementById("msg03").innerText = total;
+
+        var car = {
+            color: "red",
+            model: "Toyota",
+            year: 2020,
+            start: function() {
+                return "This car is starting.";
+            },
+            stop: function() {
+                return "This car is stopping.";
+            }
+        }
+
+        car.model = "Honda"; // 修改物件的屬性值
+        car["color"] = "Yello";
+
+        document.getElementById("msg04").innerText = 
+            "Car Model: " + car.model + ", Color: " + car.color + 
+            ". " + car.start() + " " + car.stop();
+
+
+
+
+        // 呼叫函數，並傳入參數
+        // showMessage("Hello");
+
+        // 自訂函數(副程式)
+        function showMessage(message) {
+            // 將參數 message 的值顯示在網頁上
+            message = document.getElementById("myText").value;
+            document.getElementById("msg01").innerText = message;
+            document.getElementById("msg01").style.color = "red";
+            document.getElementById("msg01").style.fontSize = "24px";
+        }
+
+        // 帶有回傳值的函數
+        function sum(a, b) {
+            return a + b;
+        }
+
+
+        var c = 0;
+        c = c + 1;
+        c += 1;
+        c++;
+        console.log("c =", c);
+
+        console.log(1==1);
+        console.log(1=="1");
+        console.log(1==="1");
+    </script>
+</body>
+</html>
