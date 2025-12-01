@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/jquery-3.7.1.js"></script>
+</head>
+<body>
+    <h1>第9堂 jQuery</h1>
+    <h2>jQuery 導入方式</h2>
+    <ul>
+        <li>下載 jQuery 檔案，放在專案資料夾內</li>
+        <li>使用 CDN 連結</li>
+    </ul>
+    <h2>基本語法</h2>
+    <h3>$(selector).action()</h3>
+    <pre>
+        // 確定網頁文件已經載入完成
+        $(document).ready(function(){
+            // 當按鈕被點擊時
+            $("button").click(function(){
+                // 隱藏所有段落
+                $("p").hide();
+            });
+        });
+    </pre>
+    <button>點我隱藏段落</button>
+    <p>這是第一個段落。</p>
+    <p>這是第二個段落。</p>
+    
+    <h2>指定ID</h2>
+    <p id="p1">我是p1段落</p>
+    <p id="p2">我是p2段落</p>
+    <input type="button" value="按鈕1" id="btn1">
+    <input type="button" value="按鈕2" id="btn2">
+
+    <h2>jQuery Ready</h2>
+    <pre>
+        // 舊寫法
+        $(document).ready(function(){
+            // 程式碼放這裡
+        });
+        // 新寫法
+        $(function(){
+            // 程式碼放這裡
+        });
+    </pre>
+
+    <h2>常用事件</h2>
+    <p>focus 事件 (取得焦點)</p>
+    <input type="text" id="txt1" value="請點我">
+    <p>blur 事件 (失去焦點)</p>
+    <input type="text" id="txt2" value="請點我">
+    <p>submit 事件</p>
+    <form action="" id="form1">
+        <input type="text" name="" id="username" placeholder="姓名">
+        <input type="text" name="" id="usertel" placeholder="電話">
+        <input type="submit" value="送出">
+    </form>
+
+    <h2>查詢功能</h2>
+    <p>模仿Google搜尋功能</p>
+    <!-- https://www.google.com/search?q=巫宏鈞 -->
+    <form action="https://www.google.com/search">
+        <input type="text" name="q" id="">
+        <input type="submit" value="Google搜尋">
+    </form>
+
+    <h2>註冊功能</h2>
+    <!-- 建立一個會員註冊表單頁，要有：姓名、帳號、密碼、確認密碼 -->
+    <form id="form_register" action="register.php">
+        <input type="text" name="name" id="name" placeholder="姓名"><br>
+        <input type="text" name="user" id="user" placeholder="帳號"><br>
+        <input type="password" name="password" id="password" placeholder="密碼"><br>
+        <input type="password" name="confirm_pw" id="confirm_pw" placeholder="確認密碼"><br>
+        <input type="submit" value="註冊">
+        <div id="msg" style="color: red;"></div>
+    </form>
+    <!-- 按送出後，會前往 register.php 頁面，並加上所有的參數，如下： -->
+    <!-- http://127.0.0.1:5500/register.php?name=Dragon&username=dragon&password=1234&confirm_pw=5678 -->
+    
+    <script>
+        // 確定網頁文件已經載入完成
+        // $(document).ready(function(){
+        $(function(){
+            // 會員註冊表單驗證
+            $('#form_register').on('submit',function(){
+                if($('#name').val() == '' || $('#user').val() == ''){
+                    $('#msg').text('請輸入所有欄位資料');
+                    return false; // 阻止表單送出
+                }
+                if($('#password').val() != $('#confirm_pw').val() || $('#password').val() == ''){
+                    $('#msg').text('密碼與確認密碼不相符，請重新輸入');
+                    return false; // 阻止表單送出
+                }
+            })
+
+
+            $('#form1').on('submit',function(){
+                let username = $('#username').val();
+                let usertel = $('#usertel').val();
+                alert('姓名：' + username + '\n電話：' + usertel);
+                return false; // 阻止表單送出
+            })
+
+
+            $('#txt1').focus(function(){
+                $(this).css('background-color','lightblue');
+            });
+            $('#txt2').blur(function(){
+                $(this).css('background-color','lightgreen');
+            });
+
+            $('#btn1').on('click',function(){
+                $('#p1').hide();
+                $('#p2').show();
+                $(this).css('background-color','yellow');
+            })
+            $('#btn2').click(function(){
+                $('#p1').show();
+                $('#p2').hide();
+                $(this).css('background-color','red');
+                $(this).css('color','white');
+                console.log($(this).css('color'));
+            })
+
+            // 當按鈕被點擊時
+            $("button").click(function(){
+                // 隱藏所有段落
+                $("p").hide();
+            });
+        });
+    </script>
+</body>
+</html>
