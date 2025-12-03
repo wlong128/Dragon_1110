@@ -104,7 +104,7 @@
                 return false; // 阻止表單送出
             })
 
-
+            // document.getElebimentById('txt1') = $('#txt1')
             $('#txt1').focus(function(){
                 $(this).css('background-color','lightblue');
             });
@@ -130,6 +130,11 @@
                 // 隱藏所有段落
                 $("p").hide();
             });
+
+            // 單引號與雙引號
+            console.log("I'm Dragon");
+            console.log('a"b"c');
+            console.log('I\'m Dragon')
         });
     </script>
 </body>

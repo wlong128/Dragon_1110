@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RWD Bootstrap 5</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+
+<body>
+    <section id="teaching-rwd-bootstrap5" class="py-5">
+        <div class="container">
+            <h1 class="text-danger">Bootstrap 5</h1>
+            <h2>斷點</h2>
+            <ul>
+                <li>xs(預設): 超小螢幕 (手機直向) 小於 576px</li>
+                <li>sm: 小螢幕 (手機橫向) 大於等於 576px</li>
+                <li>md: 中螢幕 (平板直向) 大於等於 768px</li>
+                <li>lg: 大螢幕 (平板橫向、小筆電) 大於等於 992px</li>
+                <li>xl: 超大螢幕 (一般筆電) 大於等於 1200px</li>
+                <li>xxl: 特大螢幕 (大型桌機) 大於等於 1400px</li>
+            </ul>
+            <h2>容器類</h2>
+            <ul>
+                <li>.container: 固定寬度容器，會隨斷點改變寬度</li>
+                <li>.container-fluid: 滿版寬度容器，寬度100%</li>
+            </ul>
+            <h2>網格系統</h2>
+            <p>Bootstrap 使用 12 欄的彈性網格系統，可以透過設定不同斷點的欄位數來達到響應式佈局。</p>
+            <h3>範例</h3>
+            <div class="row">
+                <div class="col-1" style="background-color: aqua;">a</div>
+                <div class="col-1" style="background-color: rgb(197, 152, 240);">b</div>
+                <div class="col-1" style="background-color: aqua;">c</div>
+                <div class="col-1" style="background-color: rgb(197, 152, 240)">d</div>
+                <div class="col-1" style="background-color: aqua;">e</div>
+                <div class="col-1" style="background-color: rgb(197, 152, 240)">f</div>
+                <div class="col-1" style="background-color: aqua;">g</div>
+                <div class="col-1" style="background-color: rgb(197, 152, 240)">h</div>
+                <div class="col-1" style="background-color: aqua;">i</div>
+                <div class="col-1" style="background-color: rgb(197, 152, 240)">j</div>
+                <div class="col-1" style="background-color: aqua;">k</div>
+                <div class="col-1" style="background-color: rgb(197, 152, 240)">l</div>
+            </div>
+            <div class="row">
+                <div class="col-2" style="background-color: aqua;">a</div>
+                <div class="col-2" style="background-color: rgb(197, 152, 240);">b</div>
+                <div class="col-2" style="background-color: aqua;">c</div>
+                <div class="col-2" style="background-color: rgb(197, 152, 240)">d</div>
+                <div class="col-2" style="background-color: aqua;">e</div>
+                <div class="col-2" style="background-color: rgb(197, 152, 240)">f</div>
+            </div>
+            <div class="row">
+                <div class="col-4" style="background-color: aqua;">a</div>
+                <div class="col-4" style="background-color: rgb(197, 152, 240);">b</div>
+                <div class="col-4" style="background-color: aqua;">c</div>
+            </div>
+            <div class="row">
+                <div class="col-3 col-md-6" style="background-color: aqua;">a</div>
+                <div class="col-3 col-md-6" style="background-color: rgb(197, 152, 240);">b</div>
+                <div class="col-3 col-md-6" style="background-color: aqua;">c</div>
+                <div class="col-3 col-md-6" style="background-color: rgb(197, 152, 240);">d</div>
+            </div>
+            <h3>offset</h3>
+            <p>偏移欄可通過 offset-*-* 類來設置。</p>
+            <div class="row">
+                <div class="col-xl-6 offset-xl-0 col-md-3 offset-md-3 col-sm-4 offset-sm-2"
+                    style="background-color: aqua;">a</div>
+                <div class="col-xl-6 col-md-3 col-sm-4" style="background-color: rgb(197, 152, 240);">b</div>
+            </div>
+            <h2>間距</h2>
+            <p>Bootstrap 提供了簡單的間距工具類，可以快速設置元素的外邊距（margin）和內邊距（padding）。</p>
+            <ul>
+                <li>m - margin 外邊距</li>
+                <li>p - padding 內邊距</li>
+                <li>t - top 上方</li>
+                <li>b - bottom 下方</li>
+                <li>s - start 左方 (LTR 文字方向)</li>
+                <li>e - end 右方 (LTR 文字方向)</li>
+                <li>x - 左右</li>
+                <li>y - 上下</li>
+                <li>數值範圍: 0, 1, 2, 3, 4, 5, auto (0 為無間距，1-5 為不同大小的間距，auto 為自動)</li>
+            </ul>
+            <div class="row">
+                <div class="col-4 bg-primary text-white p-3 mt-3">內邊距 p-3，外邊距 mt-3</div>
+                <div class="col-4 bg-secondary text-white p-2 mt-2">內邊距 p-2，外邊距 mt-2</div>
+                <div class="col-4 bg-success text-white px-2 py-2 px-lg-5 mt-5">內邊距 p-5，外邊距 mt-5</div>
+            </div>
+            <h2>標題</h2>
+            <p>Bootstrap 提供了預設的標題樣式，可以使用 h1 到 h6 標籤來表示不同層級的標題。</p>
+            <h2>Display</h2>
+            <p>文字大小可使用 display 類別來設置，範圍從 display-1 (最大) 到 display-6 (最小)。</p>
+            <div class="row">
+                <div class="col-12 display-1 bg-warning py-3 text-center">
+                    烏龍院
+                </div>
+            </div>
+            <h2>Color</h2>
+            <p>Bootstrap 提供了多種文字顏色類別，可以快速設置文字顏色。</p>
+            <ul>
+                <li>primary - 重要的色彩</li>
+                <li>secondary - 次要的色彩</li>
+                <li>success - 成功的色彩</li>
+                <li>danger - 危險的色彩</li>
+                <li>warning - 警告的色彩</li>
+                <li>info - 資訊的色彩</li>
+                <li>light - 淺色系</li>
+                <li>dark - 深色系</li>
+                <li>muted - 次要文字色彩</li>
+            </ul>
+
+            <div class="table-responsive-sm">
+                <table class="table table-striped border-info">
+                    <tr>
+                        <td class="text-nowrap">primary - 重要的色彩</td>
+                        <td class="text-nowrap">secondary - 次要的色彩</td>
+                        <td class="text-nowrap">success - 成功的色彩</td>
+                    </tr>
+                    <tr>
+                        <td class="text-nowrap">danger - 危險的色彩</td>
+                        <td class="text-nowrap">warning - 警告的色彩</td>
+                        <td class="text-nowrap">info - 資訊的色彩</td>
+                    </tr>
+                </table>
+            </div>
+            <h2>圖片</h2>
+            <p>使用 .img-fluid 類別可以讓圖片在不同裝置上自動調整大小，保持響應式設計。</p>
+            <p>可先安裝「Simple Placeholder Images」外掛，即可輸入「place」即時產生隨機圖片</p>
+            <p>
+                可使用 .rounded 類別來設置圖片的圓角效果，.rounded-circle 可將圖片設置為圓形，.rounded-5 可設置較大的圓角。
+            </p>
+            <div class="row">
+                <div class="col-md-3">
+                    <img class="img-fluid rounded-circle" src="https://picsum.photos/800/600" alt="Placeholder Image">
+                </div>
+                <div class="col-md-3">
+                    <img class="img-fluid rounded-5" src="https://picsum.photos/840/630" alt="Placeholder Image">
+                </div>
+                <div class="col-md-3">
+                    <img class="img-fluid" src="https://picsum.photos/880/660" alt="Placeholder Image">
+                </div>
+                <div class="col-md-3">
+                    <img class="img-fluid" src="https://picsum.photos/920/690" alt="Placeholder Image">
+                </div>
+            </div>
+            <div class="row py-4">
+                <div class="col-md-6 text-center bg-secondary rounded-5 p-2">
+                    <img src="https://picsum.photos/200/200" alt="Placeholder Image">
+                </div>
+            </div>
+            <h2>圖片區</h2>
+            <figure class="figure">
+                <img src="https://picsum.photos/400/200" class="figure-img img-fluid rounded" alt="" />
+                <figcaption class="figure-caption text-start">
+                    Some Word
+                </figcaption>
+            </figure>
+
+            <p>
+                註：可以裝「IntelliSense for CSS class names in HTML」外掛，來自動補齊 Bootstrap 的 class 名稱
+            </p>
+
+        </div>
+    </section>
+
+
+
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
