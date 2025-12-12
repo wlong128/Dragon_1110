@@ -11,25 +11,20 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!-- Animate.css CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
 </head>
 
 <body>
     <header>
-        <!-- place navbar here -->
+        <div class="container">
+            <h1 class="animate__animated animate__sh">Animate</h1>
+            <a href="#" class="btn btn-primary animate__animated animate__pulse">Click me</a>
+        </div>
     </header>
     <main>
-        <div class="container">
-            <h1 class="p-5 bg-warning rounded-3">Supabase Todo Demo（jQuery）</h1>
-            <div>
-                <input type="text" id="task" placeholder="請輸入待辦事項">
-                <button id="btn_add">新增</button>
-            </div>
-            <hr>
-            <ul id="todo_list"></ul>
-        </div>
+        
     </main>
     <footer>
         <!-- place footer here -->
@@ -42,84 +37,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
-
-    <script>
-        // === 這兩個請改成「你的專案」 ===
-        const SUPABASE_URL = 'https://ivlqkagjzrgxksrlpiaq.supabase.co'; // Project URL
-        const SUPABASE_KEY = 'sb_publishable_KgDue3rulzbLapKVTVjx6A_co-J6f1s'; // 你的 Publishable key
-
-        // 讀取 todos 列表
-        function loadTodos() {
-            $.ajax({
-                url: SUPABASE_URL + '/rest/v1/todos?select=*&order=id.desc',
-                method: 'GET',
-                headers: {
-                    apikey: SUPABASE_KEY,
-                    Authorization: 'Bearer ' + SUPABASE_KEY
-                },
-                success: function (data) {
-                    $('#todo_list').empty();
-                    if (!data || data.length === 0) {
-                        $('#todo_list').append('<li>目前沒有資料</li>');
-                        return;
-                    }
-                    data.forEach(function (row) {
-                        $('#todo_list').append(
-                            '<li>' +
-                            row.id + '. ' +
-                            row.task + ' [' + (row.is_done ? '完成' : '未完成') + ']' +
-                            '</li>'
-                        );
-                    });
-                },
-                error: function (xhr) {
-                    console.log('載入失敗：', xhr.status, xhr.responseText);
-                    alert('載入失敗，請看 console 錯誤訊息');
-                }
-            });
-        }
-
-        // 新增 todo
-        function addTodo(task) {
-            $.ajax({
-                url: SUPABASE_URL + '/rest/v1/todos',
-                method: 'POST',
-                headers: {
-                    apikey: SUPABASE_KEY,
-                    Authorization: 'Bearer ' + SUPABASE_KEY,
-                    'Content-Type': 'application/json'
-                },
-                data: JSON.stringify({
-                    task: task,
-                    is_done: false
-                }),
-                success: function (res) {
-                    $('#task').val('');
-                    loadTodos(); // 新增成功後重新載入列表
-                },
-                error: function (xhr) {
-                    console.log('新增失敗：', xhr.status, xhr.responseText);
-                    alert('新增失敗，請看 console 錯誤訊息');
-                }
-            });
-        }
-
-        // 綁定按鈕事件
-        $('#btn_add').on('click', function () {
-            const task = $('#task').val().trim();
-            if (!task) {
-                alert('請先輸入待辦事項內容');
-                return;
-            }
-            addTodo(task);
-        });
-
-        // 頁面載入完成先抓一次資料
-        $(function () {
-            loadTodos();
-        });
-    </script>
-    
 </body>
 
 </html>

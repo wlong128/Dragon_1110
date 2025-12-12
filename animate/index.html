@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>Animate.css 16 類別範例 (WOW.js + Fullscreen + Next Button)</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <style>
+    section {
+      height: 100vh;              /* 每個區塊佔滿螢幕高度 */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;    /* 垂直置中 */
+      align-items: center;        /* 水平置中 */
+      border-bottom: 1px solid #ddd;
+      position: relative;
+    }
+    .demo-box {
+      margin: 20px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 22px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      width: 280px;
+    }
+    h2 {
+      margin-bottom: 30px;
+    }
+    .next-btn {
+      position: absolute;
+      bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <section id="start">
+    <h1 class="text-center py-3">Animate.css 16 類別範例展示 (搭配 WOW.js)</h1>
+    <button class="btn btn-primary next-btn" onclick="goNext('back')">下一頁</button>
+  </section>
+
+  <!-- 1 Attention Seekers -->
+  <section id="attention">
+    <h2>Attention Seekers</h2>
+    <div class="demo-box wow animate__animated animate__bounce">bounce</div>
+    <div class="demo-box wow animate__animated animate__flash">flash</div>
+    <div class="demo-box wow animate__animated animate__pulse">pulse</div>
+    <button class="btn btn-primary next-btn" onclick="goNext('back')">下一頁</button>
+  </section>
+
+  <!-- 2 Back Entrances / Exits -->
+  <section id="back">
+    <h2>Back Entrances / Exits</h2>
+    <div class="demo-box wow animate__animated animate__backInDown">backInDown</div>
+    <div class="demo-box wow animate__animated animate__backOutUp">backOutUp</div>
+    <button class="btn btn-primary next-btn" onclick="goNext('bounce')">下一頁</button>
+  </section>
+
+  <!-- 3 Bounce -->
+  <section id="bounce">
+    <h2>Bouncing Entrances / Exits</h2>
+    <div class="demo-box wow animate__animated animate__bounceIn">bounceIn</div>
+    <div class="demo-box wow animate__animated animate__bounceOut">bounceOut</div>
+    <button class="btn btn-primary next-btn" onclick="goNext('fade')">下一頁</button>
+  </section>
+
+  <!-- 4 Fade -->
+  <section id="fade">
+    <h2>Fading Entrances / Exits</h2>
+    <div class="demo-box wow animate__animated animate__fadeIn">fadeIn</div>
+    <div class="demo-box wow animate__animated animate__fadeOut">fadeOut</div>
+    <button class="btn btn-primary next-btn" onclick="goNext('flip')">下一頁</button>
+  </section>
+
+  <!-- 5 Flip -->
+  <section id="flip">
+    <h2>Flippers</h2>
+    <div class="demo-box wow animate__animated animate__flipInX">flipInX</div>
+    <div class="demo-box wow animate__animated animate__flipOutY">flipOutY</div>
+    <button class="btn btn-primary next-btn" onclick="goNext('light')">下一頁</button>
+  </section>
+
+  <!-- 6 LightSpeed -->
+  <section id="light">
+    <h2>LightSpeed</h2>
+    <div class="demo-box wow animate__animated animate__lightSpeedInRight">lightSpeedInRight</div>
+    <div class="demo-box wow animate__animated animate__lightSpeedOutLeft">lightSpeedOutLeft</div>
+    <button class="btn btn-primary next-btn" onclick="goNext('rotate')">下一頁</button>
+  </section>
+
+  <!-- 7 Rotate -->
+  <section id="rotate">
+    <h2>Rotating Entrances / Exits</h2>
+    <div class="demo-box wow animate__animated animate__rotateIn">rotateIn</div>
+    <div class="demo-box wow animate__animated animate__rotateOut">rotateOut</div>
+    <button class="btn btn-primary next-btn" onclick="goNext('slide')">下一頁</button>
+  </section>
+
+  <!-- 8 Slide -->
+  <section id="slide">
+    <h2>Sliding Entrances / Exits</h2>
+    <div class="demo-box wow animate__animated animate__slideInRight">slideInRight</div>
+    <div class="demo-box wow animate__animated animate__slideOutLeft">slideOutLeft</div>
+    <button class="btn btn-primary next-btn" onclick="goNext('zoom')">下一頁</button>
+  </section>
+
+  <!-- 9 Zoom -->
+  <section id="zoom">
+    <h2>Zooming Entrances / Exits</h2>
+    <div class="demo-box wow animate__animated animate__zoomIn">zoomIn</div>
+    <div class="demo-box wow animate__animated animate__zoomOut">zoomOut</div>
+    <button class="btn btn-primary next-btn" onclick="goNext('special')">下一頁</button>
+  </section>
+
+  <!-- 10 Special -->
+  <section id="special">
+    <h2>Specials</h2>
+    <div class="demo-box wow animate__animated animate__hinge">hinge</div>
+    <div class="demo-box wow animate__animated animate__jackInTheBox">jackInTheBox</div>
+    <div class="demo-box wow animate__animated animate__rollIn">rollIn</div>
+    <div class="demo-box wow animate__animated animate__rollOut">rollOut</div>
+    <button class="btn btn-success next-btn" onclick="goNext('start')">回到第一頁</button>
+  </section>
+
+  <!-- WOW.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+  <script>
+    new WOW().init();
+
+    function goNext(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
