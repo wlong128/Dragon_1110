@@ -53,7 +53,7 @@
             <div class="row">
                 <div class="col-12">
                         <?php
-                            // 先判斷是否有資料
+                            // 先判斷是否有資料,可以使用 nl2br($str) 函數將 \n 自動轉為 <br>
                             if(mysqli_num_rows($datas)>0){
                                 // 將資料表的內容一筆筆抓到 $row 中
                                 while($row = mysqli_fetch_assoc($datas)){
@@ -63,7 +63,7 @@
                                     echo '<p><img class="img-fluid" src="upload/news/'.
                                             $row['news_img'].
                                             '" alt=""></p>';
-                                    echo '<p>'.$row['news_content'].'</p>';
+                                    echo '<p>'.nl2br($row['news_content']).'</p>';
                                 }
                             }
                         ?>

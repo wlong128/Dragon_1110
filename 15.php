@@ -48,6 +48,9 @@
     <main>
         <div class="container pt-5">
             <div class="row">
+                <div class="col-12 text-end pb-3">
+                    <a href="16.php" class="btn btn-info btn-sm">新增</a>
+                </div>
                 <div class="col-12">
                     <table class="table table-bordered">
                         <tr>
@@ -74,7 +77,7 @@
                                     // echo '<td>'.$row['news_content'].'</td>';
                                     echo '<td>'.$row['news_created'].'</td>';
                                     echo '<td>'.$row['news_poster'].'</td>';
-                                    echo '<td><a href="16-1.php?id='.$row['news_id'].'" class="btn btn-info">編輯</a></td>';
+                                    echo '<td><a href="16-2.php?id='.$row['news_id'].'" class="btn btn-info">編輯</a></td>';
                                     echo '</tr>';
                                 }
                             }
