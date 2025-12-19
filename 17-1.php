@@ -1,12 +1,4 @@
 <?php
-    // 啟動 session 功能
-    session_start();
-
-    // 判斷 session 是否存在，若不存在則轉至登入頁
-    if(empty($_SESSION['user'])){
-        header('location: login.php');
-    }
-
     // 判斷有無 id 參數
     if(empty($_GET['id'])) {
         echo '查無資料';
@@ -56,6 +48,9 @@
 </head>
 
 <body>
+    <header>
+        <?php include_once('navbar.php') ?>
+    </header>
     <main>
         <div class="container pt-5">
             <div class="row">
@@ -79,8 +74,8 @@
             </div>
         </div>
     </main>
-    <footer>
-        <!-- place footer here -->
+    <footer class="bg-dark">
+        <?php include_once('footer.php') ?>
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
     <script

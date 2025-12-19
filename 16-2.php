@@ -1,4 +1,12 @@
 <?php
+    // 啟動 session 功能
+    session_start();
+
+    // 判斷 session 是否存在，若不存在則轉至登入頁
+    if(empty($_SESSION['user'])){
+        header('location: login.php');
+    }
+    
     // 判斷是否有傳遞 id 參數
     if(!empty($_GET['id'])) {
         $id = $_GET['id'];
@@ -112,6 +120,7 @@
                 <div class="row">
                     <div class="col-12 text-end">
                         <input type="hidden" name="news_id" value="<?=$row['news_id']?>">
+                        <input type="hidden" name="news_img_old" value=<?=$row['news_img']?>>
                         <input type="submit" class="btn btn-success" value="儲存">
                     </div>
                 </div>

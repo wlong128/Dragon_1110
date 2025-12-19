@@ -1,4 +1,12 @@
 <?php
+    // 啟動 session 功能
+    session_start();
+
+    // 判斷 session 是否存在，若不存在則轉至登入頁
+    if(empty($_SESSION['user'])){
+        header('location: login.php');
+    }
+
     $host = 'localhost';      // 主機位址
     $db = 'dragon1101';        // 資料庫名稱
     $db_user = 'dragon1101';  // 帳號
@@ -77,7 +85,9 @@
                                     // echo '<td>'.$row['news_content'].'</td>';
                                     echo '<td>'.$row['news_created'].'</td>';
                                     echo '<td>'.$row['news_poster'].'</td>';
-                                    echo '<td><a href="16-2.php?id='.$row['news_id'].'" class="btn btn-info">編輯</a></td>';
+                                    echo '<td><a href="16-2.php?id='.$row['news_id'].'" class="btn btn-info">編輯</a>';
+                                    // 製作 刪除 按鈕，並傳送新聞編號給 del(id,title) 函數
+                                    echo '<btn onclick="del('.$row['news_id'].',\''.$row['news_title'].'\')" class="btn btn-danger">刪除</btn></td>';
                                     echo '</tr>';
                                 }
                             }
@@ -101,6 +111,16 @@
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
+
+    <script>
+        function del(id,title) {
+            // 顯示確認視窗
+            if(confirm("您確定要刪除「"+title+"」嗎？")){
+                // 指定轉址
+                window.location.href = '17-2.php?id='+id;
+            }
+        }
+    </script>
 </body>
 
 </html>

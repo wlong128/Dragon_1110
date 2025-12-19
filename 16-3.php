@@ -1,11 +1,19 @@
 <?php
+    // 啟動 session 功能
+    session_start();
+
+    // 判斷 session 是否存在，若不存在則轉至登入頁
+    if(empty($_SESSION['user'])){
+        header('location: login.php');
+    }
+    
     $id = $_POST['news_id'];
     $title = $_POST['news_title'];
     $content = $_POST['news_content'];
     $poster = $_POST['news_poster'];
     $created = $_POST['news_created'];
-    // 由於編輯功能不一定會上傳照片，所以必須將檔案名稱設定預設值
-    $filename = '';
+    // 由於編輯功能不一定會上傳照片，所以必須將檔案名稱抓取原本務舊檔名
+    $filename = $_POST['news_img_old'];
 
     // 宣告使用台北時間來當日期的計算
     date_default_timezone_set("Asia/Taipei");
@@ -44,48 +52,45 @@
     echo $filename.'<br>';
     echo '<br>';
 
-    $sql = "UPDATE news SET news_title = '$title', news_img = '$filename', news_content = '$content', news_poster = '$poster', `news_created` = '$created' WHERE news_id = $id";
-    echo $sql;
+    // 測試 SQL 語法
+    // $sql = "UPDATE news SET news_title = '$title', news_img = '$filename', news_content = '$content', news_poster = '$poster', `news_created` = '$created' WHERE news_id = $id";
+    // echo $sql;
 
-    // $host = 'localhost';      // 主機位址
-    // $db = 'dragon1101';        // 資料庫名稱
-    // $db_user = 'dragon1101';  // 帳號
-    // $db_pw = '1234';          // 密碼
+    $host = 'localhost';      // 主機位址
+    $db = 'dragon1101';        // 資料庫名稱
+    $db_user = 'dragon1101';  // 帳號
+    $db_pw = '1234';          // 密碼
 
-    // // 設定連線字串
-    // $conn = mysqli_connect($host, $db_user, $db_pw, $db);
+    // 設定連線字串
+    $conn = mysqli_connect($host, $db_user, $db_pw, $db);
 
-    // if($conn){
-    //     // 建立 insert into 資料表的 SQL 指令
-    //     // 下面的語法比較危險，容易被駭客使用 SQL Injection 來破解資料庫
-    //     // $sql = "INSERT INTO news (news_title, news_img, news_content, news_poster, news_created) VALUES ('$title', '$filename', '$content', '$poster', '$created')";
-    //     // $datas = mysqli_query($conn, $sql);
-        
-    //     // 改為使用 mysqli_prepare() 來執行指令較為安全
-    //     $sql = "INSERT INTO news (news_title, news_img, news_content, news_poster, news_created) VALUES (?, ?, ?, ?, ?)";
+    if($conn){
+        // 改為使用 mysqli_prepare() 來執行指令較為安全
+        $sql = "UPDATE news SET news_title = ?, news_img = ?, news_content = ?, news_poster = ?, `news_created` = ? WHERE news_id = ?";
 
-    //     // 向資料庫下指令並取回資料
-    //     $datas = mysqli_prepare($conn, $sql);
-    //     // 'sssss' 代表五個內容各別的資料型態
-    //     // s -> 字串
-    //     // i -> 整數
-    //     // d -> 小數
-    //     mysqli_stmt_bind_param(
-    //         $datas,
-    //         'sssss',
-    //         $title,
-    //         $filename,
-    //         $content,
-    //         $poster,
-    //         $created
-    //     );
-    //     // 確定執行綁定後的內容
-    //     $check = mysqli_stmt_execute($datas);
+        // 向資料庫下指令並取回資料
+        $datas = mysqli_prepare($conn, $sql);
+        // 'sssss' 代表五個內容各別的資料型態
+        // s -> 字串
+        // i -> 整數
+        // d -> 小數
+        mysqli_stmt_bind_param(
+            $datas,
+            'sssssi',
+            $title,
+            $filename,
+            $content,
+            $poster,
+            $created,
+            $id
+        );
+        // 確定執行綁定後的內容
+        $check = mysqli_stmt_execute($datas);
 
-    //     //  判斷是否新增成功
-    //     if($check){
-    //         // 強制轉址
-    //         header('location:15.php');
-    //     }
-    // }
+        //  判斷是否新增成功
+        if($check){
+            // 強制轉址
+            header('location:15.php');
+        }
+    }
 ?>
