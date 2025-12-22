@@ -14,10 +14,10 @@
                 <div class="collapse navbar-collapse" id="collapsibleNavId">
                     <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" href="index.html" aria-current="page">首頁</a>
+                            <a class="nav-link active" href="<?= URL ?>index.php" aria-current="page">首頁</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="17.php">最新消息</a>
+                            <a class="nav-link" href="<?= URL ?>news.php">最新消息</a>
                         </li>
                         <?php
                         // 判斷 session 是否存在，若存在，則顯示管理功能
@@ -33,9 +33,9 @@
                                     <div
                                         class="dropdown-menu"
                                         aria-labelledby="dropdownId">
-                                        <a class="dropdown-item" href="15.php">新聞管理</a>
+                                        <a class="dropdown-item" href="'.URL.'admin/news.php">新聞管理</a>
                                         <a class="dropdown-item" href="#">產品管理</a>
-                                        <a class="dropdown-item" href="logout.php">登出</a>
+                                        <a class="dropdown-item" href="'.URL.'logout.php">登出</a>
                                     </div>
                                 </li>';
                         }

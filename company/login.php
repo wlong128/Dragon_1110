@@ -1,3 +1,7 @@
+<?php
+    // 引入設定檔
+    include_once('include/config.php');
+?>
 <!doctype html>
 <html lang="en">
 
@@ -19,7 +23,7 @@
 
 <body>
     <header>
-        <?php include_once(dirname(__DIR__).'navbar.php') ?>
+        <?php include_once('navbar.php') ?>
     </header>
     <main>
         <div class="container py-5">

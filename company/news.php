@@ -1,6 +1,6 @@
 <?php
-    // 啟動 session 功能
-    session_start();
+    // 引入設定檔
+    include_once('include/config.php');
     
     $host = 'localhost';      // 主機位址
     $db = 'dragon1101';        // 資料庫名稱
@@ -60,7 +60,7 @@
                         <div class="col-md-4 d-flex mb-3">
                             <div class="card flex-fill">
                                 <!-- 控制圖片的顯示比例為 16:9 -->
-                                <a href="17-1.php?id=<?= $row['news_id'] ?>">
+                                <a href="news_content.php?id=<?= $row['news_id'] ?>">
                                     <div class="ratio ratio-16x9">
                                         <img class="card-img-top" src="upload/news/<?= $row['news_img'] ?>" alt="Title" />
                                     </div>

@@ -1,10 +1,10 @@
 <?php
-    // 啟動 session 功能
-    session_start();
+    // 引入設定檔
+    include_once('../include/config.php');
 
     // 判斷 session 是否存在，若不存在則轉至登入頁
     if(empty($_SESSION['admin_name']) or empty($_SESSION['admin_account'])){
-        header('location: login.php');
+        header('location: '.URL.'login.php');
     }
 
     $host = 'localhost';      // 主機位址
@@ -49,7 +49,7 @@
 
 <body>
     <header>
-        <?php include_once('navbar.php') ?>
+        <?php include_once(dirname(__DIR__).'/navbar.php') ?>
         <div class="container pt-5">
             <h1>新聞管理</h1>
         </div>
@@ -58,7 +58,7 @@
         <div class="container pt-5">
             <div class="row">
                 <div class="col-12 text-end pb-3">
-                    <a href="16.php" class="btn btn-info btn-sm">新增</a>
+                    <a href="news_post.php" class="btn btn-info btn-sm">新增</a>
                 </div>
                 <div class="col-12">
                     <table class="table table-bordered">
@@ -78,9 +78,9 @@
                                 while($row = mysqli_fetch_assoc($datas)){
                                     echo '<tr>';
                                     echo '<td>'.$row['news_id'].'</td>';
-                                    echo '<td><a href="15-1.php?id='.$row['news_id'].
+                                    echo '<td><a href="../news_content.php?id='.$row['news_id'].
                                           '">'.$row['news_title'].'</a></td>';
-                                    echo '<td><img class="img-fluid" src="upload/news/'.
+                                    echo '<td><img class="img-fluid" src="../upload/news/'.
                                             $row['news_img'].
                                             '" alt=""></td>';
                                     // echo '<td>'.$row['news_content'].'</td>';

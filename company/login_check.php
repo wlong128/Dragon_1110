@@ -1,6 +1,6 @@
 <?php
-    // 啟用 session 功能
-    session_start();
+    // 引入設定檔
+    include_once('include/config.php');
 
     if(!empty($_POST['account'])){
         $account = $_POST['account'];
@@ -38,7 +38,7 @@
                 // echo $_SESSION['admin_account'];
 
                 // 登入成功後回到管理首頁
-                header('location: 15.php');
+                header('location: index.php');
             }else{
                 echo '登入錯誤，請檢查密碼';
                 // 登入失敗時，清空 session

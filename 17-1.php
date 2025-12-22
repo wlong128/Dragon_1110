@@ -1,4 +1,6 @@
 <?php
+    session_start();
+    
     // 判斷有無 id 參數
     if(empty($_GET['id'])) {
         echo '查無資料';

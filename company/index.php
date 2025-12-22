@@ -1,3 +1,7 @@
+<?php
+    // 引入設定檔
+    include_once('include/config.php');
+?>
 <!doctype html>
 <html lang="en">
 
@@ -19,31 +23,16 @@
 
 <body>
     <header>
-        <?php include_once(dirname(__DIR__).'navbar.php') ?>
+        <?php include_once('navbar.php') ?>
     </header>
     <main>
-        <div class="container py-5">
-            <form action="login_check.php" method="post">
+        <section id="news" class="py-5">
+            <div class="container">
                 <div class="row">
-                    <div class="col-md-6 offset-md-3">
-                        <div class="mb-3">
-                            <label for="account" class="form-label">帳號</label>
-                            <input type="text" class="form-control" name="account" require>
-                        </div>
-                        <div class="mb-3">
-                            <label for="pw" class="form-label">密碼</label>
-                            <input type="password" class="form-control" name="pw" require>
-                        </div>
-                        <div class="mb-3 text-center">
-                            <button type="submit" class="btn btn-primary">
-                                登入
-                            </button>
-                        </div>
-
-                    </div>
+                    我是首頁
                 </div>
-            </form>
-        </div>
+            </div>
+        </section>
     </main>
     <footer class="bg-dark">
         <?php include_once('footer.php') ?>

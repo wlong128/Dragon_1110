@@ -33,7 +33,7 @@
                 // 使用日期組合出不重覆的檔案名稱(存進 news_img 的資料為 $filename
                 $filename = $num.'.'.$ext;
                 // 檔上傳至暫存目錄的檔案移至網站指定的目錄內並更換為指定檔案名稱
-                move_uploaded_file($_FILES['news_img']['tmp_name'],'upload/news/'.$filename);
+                move_uploaded_file($_FILES['news_img']['tmp_name'],'../upload/news/'.$filename);
             }else{
                 // 強制結束 exit 以下所有PHP程式及網頁內容
                 exit;
@@ -86,7 +86,7 @@
         //  判斷是否新增成功
         if($check){
             // 強制轉址
-            header('location:15.php');
+            header('location: news.php');
         }
     }
 ?>

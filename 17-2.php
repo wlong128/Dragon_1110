@@ -3,7 +3,7 @@
     session_start();
 
     // 判斷 session 是否存在，若不存在則轉至登入頁
-    if(empty($_SESSION['user'])){
+    if(empty($_SESSION['admin_name']) or empty($_SESSION['admin_account'])){
         header('location: login.php');
     }
 
