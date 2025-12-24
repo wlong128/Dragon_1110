@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+        crossorigin="anonymous" />
+</head>
+
+<body>
+    <header>
+        <div w3-include-html="navbar.html"></div>
+    </header>
+    <main>
+        <section id="news" class="py-5">
+            <div class="container">
+                <div class="row" id="news_list">
+                    <!-- 使用 flex 系統，將卡片高度設為齊高 -->
+                    <div class="col-md-4 d-flex mb-3">
+                        <div class="card flex-fill">
+                            <!-- 控制圖片的顯示比例為 16:9 -->
+                            <a href="news_content.html?id=1">
+                                <div class="ratio ratio-16x9">
+                                    <img class="card-img-top" src="upload/news/20251215200405.jpg" alt="Title" />
+                                </div>
+                            </a>
+                            <div class="card-body">
+                                <p class="card-text">2025-12-24</p>
+                                <h4 class="card-title">news title</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+    </main>
+    <footer class="bg-dark">
+        <div w3-include-html="footer.html"></div>
+    </footer>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+
+    <script>
+        // 引入外部檔案所必須使用的函數
+        function includeHTML() {
+            var z, i, elmnt, file, xhttp;
+            /* Loop through a collection of all HTML elements: */
+            z = document.getElementsByTagName("*");
+            for (i = 0; i < z.length; i++) {
+                elmnt = z[i];
+                /*search for elements with a certain atrribute:*/
+                file = elmnt.getAttribute("w3-include-html");
+                if (file) {
+                /* Make an HTTP request using the attribute value as the file name: */
+                xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4) {
+                    if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+                    if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+                    /* Remove the attribute, and call this function once more: */
+                    elmnt.removeAttribute("w3-include-html");
+                    includeHTML();
+                    }
+                }
+                xhttp.open("GET", file, true);
+                xhttp.send();
+                /* Exit the function: */
+                return;
+                }
+            }
+        }
+        // 開始引入外部檔案
+        includeHTML();
+    </script>
+
+    <!-- 引入 jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        $(function(){
+            // 開始讀取 API
+            $.ajax({
+                url: 'api/news_list.php',
+                method: 'GET',
+                dataType: 'json'  // 要小心大小寫要一樣
+            }).done(function(json){
+                // console.log(json);
+                // 建立內容變數 html，預設為空值
+                var html = '';
+                // 先判斷是否有抓到 msg 的內容，並且為「success」字串
+                if(json.msg == 'success'){
+                    // 透過 forEach 迴圈讀取 json.data 的資料，將每筆資料傳至 item 中
+                    json.data.forEach(function(item){
+                        let id = item.id;
+                        let title = item.title;
+                        let img = item.img;
+                        // let content = item.content;
+                        let date = item.date;
+                        // let poster = item.poster;
+                        // 將抓到的資料寫進 html 變數中，使用「`」反引號的字串中可以直接加入 ${變數}
+                        html += `
+                            <div class="col-md-4 d-flex mb-3">
+                                <div class="card flex-fill">
+                                    <a href="news_content.html?id=${id}">
+                                        <div class="ratio ratio-16x9">
+                                            <img class="card-img-top" src="upload/news/${img}" alt="Title" />
+                                        </div>
+                                    </a>
+                                    <div class="card-body">
+                                        <p class="card-text">${date}</p>
+                                        <h4 class="card-title">${title}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    // 將 html 內容寫到指定的 div 中
+                    $('#news_list').html(html);
+                }
+            })
+        })
+        
+    </script>
+</body>
+
+</html>

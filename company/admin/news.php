@@ -86,7 +86,7 @@
                                     // echo '<td>'.$row['news_content'].'</td>';
                                     echo '<td>'.$row['news_created'].'</td>';
                                     echo '<td>'.$row['news_poster'].'</td>';
-                                    echo '<td><a href="16-2.php?id='.$row['news_id'].'" class="btn btn-info">編輯</a>';
+                                    echo '<td><a href="news_edit.php?id='.$row['news_id'].'" class="btn btn-info">編輯</a>';
                                     // 製作 刪除 按鈕，並傳送新聞編號給 del(id,title) 函數
                                     echo '<btn onclick="del('.$row['news_id'].',\''.$row['news_title'].'\')" class="btn btn-danger">刪除</btn></td>';
                                     echo '</tr>';
@@ -118,7 +118,7 @@
             // 顯示確認視窗
             if(confirm("您確定要刪除「"+title+"」嗎？")){
                 // 指定轉址
-                window.location.href = '17-2.php?id='+id;
+                window.location.href = 'news_del.php?id='+id;
             }
         }
     </script>
