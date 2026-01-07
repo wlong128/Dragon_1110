@@ -24,17 +24,22 @@
     $conn = mysqli_connect($host, $db_user, $db_pw, $db);
 
     if($conn){
-        // 設定 SQL 查詢指令 (查詢指定編號的資料)
-        $sql = "SELECT * FROM news WHERE news_id = $id";
+        // 設定 SQL 查詢指令 (查詢指定產品編號的資料)
+        $sql = "SELECT * FROM product WHERE product_id = $id";
         // 向資料庫下指令並取回資料
         $datas = mysqli_query($conn, $sql);
+
+        // 設定 SQL 查詢指令 (查詢產品分類資料)
+        $sql = 'SELECT * FROM product_type';
+        // 向資料庫下指令並取回資料
+        $types = mysqli_query($conn, $sql);
     }
 ?>
 <!doctype html>
 <html lang="en">
 
 <head>
-    <title>新聞編輯</title>
+    <title>產品編輯</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
@@ -53,7 +58,7 @@
     <header>
         <?php include_once('navbar.php') ?>
         <div class="container pt-5">
-            <h1>新聞編輯</h1>
+            <h1>產品編輯</h1>
         </div>
     </header>
     <main>
@@ -64,64 +69,88 @@
                 // 將資料表的內容一筆筆抓到 $row 中
                 while($row = mysqli_fetch_assoc($datas)){
             ?>
-            <form action="news_update.php" method="post" enctype="multipart/form-data">
+            <form action="product_update.php" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-2 mb-3 pt-1 text-end">
-                        新聞標題
+                        產品編號
                     </div>
                     <div class="col-md-10 mb-3">
-                        <input type="text" class="form-control" name="news_title" id="" value="<?=$row['news_title']?>" required>
+                        <input type="text" class="form-control" name="product_sn" id="" value="<?=$row['product_sn']?>" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-2 mb-3 pt-1 text-end">
-                        焦點圖片
+                        產品名稱
                     </div>
                     <div class="col-md-10 mb-3">
-                        <input type="file" class="form-control" name="news_img" id="">
+                        <input type="text" class="form-control" name="product_name" id="" value="<?=$row['product_name']?>" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 mb-3 pt-1 text-end">
+                        產品圖片
+                    </div>
+                    <div class="col-md-10 mb-3">
+                        <input type="file" class="form-control" name="product_img" id="">
                     </div>
                     <div class="col-md-10 offset-md-2 mb-3">
-                        <img src="../upload/news/<?=$row['news_img']?>" alt="" class="w-25">
+                        <img src="../upload/product/<?=$row['product_img']?>" alt="" class="w-25">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-2 mb-3 pt-1 text-end">
-                        新聞內容
+                        產品內容
                     </div>
                     <div class="col-md-10 mb-3">
-                        <textarea class="form-control" name="news_content" id="" rows="15" required><?=$row['news_content']?></textarea>
+                        <textarea class="form-control" name="product_content" id="" rows="15" required><?=$row['product_content']?></textarea>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-2 mb-3 pt-1 text-end">
-                        發佈人
+                        產品分類
                     </div>
                     <div class="col-md-10 mb-3">
-                        <!-- 文字方塊 -->
-                        <!-- <input type="text" class="form-control" name="news_poster" id="" required> -->
-                        <!-- 選項按鈕 -->
-                        <!-- <input type="radio" name="news_poster" id="np1" value="Dragon" required> <label for="np1">Dragon</label>
-                        <input type="radio" name="news_poster" id="np2" value="Amy" required> <label for="np2">Amy</label> -->
                         <!-- 下拉選單 -->
-                        <select class="form-select" name="news_poster" id="" required>
+                        <select class="form-select" name="product_type_id" id="" required>
                             <option value="">請選擇</option>
-                            <option value="Dragon" <?php if($row['news_poster']=='Dragon') echo 'selected' ?>>Dragon</option>
-                            <option value="Amy" <?php if($row['news_poster']=='Amy') echo 'selected' ?>>Amy</option>
+                            <?php
+                                // 先判斷是否有資料
+                                if(mysqli_num_rows($types)>0){
+                                    // 將資料表的內容一筆筆抓到 $row 中
+                                    while($row_type = mysqli_fetch_assoc($types)){
+                                        echo '<option value="'.$row_type['product_type_id'].'" '.
+                                                      ($row['product_type_id']==$row_type['product_type_id'] ? 'selected' : '').'>'.$row_type['product_type'].'</option>';
+                                    }
+                                }
+                            ?>
                         </select>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-2 mb-3 pt-1 text-end">
-                        發佈日期
+                        產品金額
                     </div>
                     <div class="col-md-10 mb-3">
-                        <input type="datetime-local" class="form-control" name="news_created" id="" value="<?=$row['news_created']?>" required>
+                        <input type="text" class="form-control" name="product_price" id="" value="<?=$row['product_price']?>" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 mb-3 pt-1 text-end">
+                        是否上架
+                    </div>
+                    <div class="col-md-10 mb-3">
+                        <!-- 下拉選單 -->
+                        <select class="form-select" name="product_posted" id="" required>
+                            <option value="">請選擇</option>
+                            <option value="下架" <?php if($row['product_posted']=='下架') echo 'selected' ?>>下架</option>
+                            <option value="上架" <?php if($row['product_posted']=='上架') echo 'selected' ?>>上架</option>
+                        </select>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 text-end">
-                        <input type="hidden" name="news_id" value="<?=$row['news_id']?>">
-                        <input type="hidden" name="news_img_old" value=<?=$row['news_img']?>>
+                        <input type="hidden" name="product_id" value="<?=$row['product_id']?>">
+                        <input type="hidden" name="product_img_old" value=<?=$row['product_img']?>>
                         <input type="submit" class="btn btn-success" value="儲存">
                     </div>
                 </div>

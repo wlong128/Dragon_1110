@@ -12,16 +12,7 @@
     // echo var_dump($conn);
 
     if($conn){
-        //echo 'conn done';
-
-        // 分頁功能 LIMIT 有兩種寫法
-        // 1:LIMIT n，這是取最得前面的 n 筆資料
-        // 2:LIMIT m,n，這是先省略 m 筆資料，再取得最前面的 n 筆資料
-        // 也就是可以把 n 當成每頁取得筆數，m/每頁筆數+1=目前的頁數
-        $n = 9; // 每頁取得9筆
-        // 三元運算子 (條件)?值1:值2
-        $m = isset($_GET['p']) ? ($_GET['p'] - 1) * $n : 0;  // 目前是第1頁 $m = (目前頁數-1)*每頁筆數
-        $sql = "SELECT * FROM news LIMIT $m, $n";
+        $sql = "SELECT * FROM product_type";
 
         // 向資料庫下指令並取回資料
         $datas = mysqli_query($conn, $sql);
@@ -30,13 +21,8 @@
         $i = 0;
         while($row = mysqli_fetch_assoc($datas)){
             // 組合出 $rows 的資料表格 (二維陣列)
-            $rows[$i]['id']=$row['news_id'];
-            $rows[$i]['title']=$row['news_title'];
-            $rows[$i]['img']=$row['news_img'];
-            // $rows[$i]['content']=$row['news_content'];
-            $rows[$i]['date']=$row['news_created'];
-            // $rows[$i]['poster']=$row['news_poster'];
-            // 增加1列
+            $rows[$i]['type_id']=$row['product_type_id'];
+            $rows[$i]['type']=$row['product_type'];
             $i++;
         }
         // 預計JSON格式 $temp={data:[{0},{1},{2}...],msg:success}

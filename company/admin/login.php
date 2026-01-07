@@ -1,17 +1,12 @@
 <?php
     // 引入設定檔
     include_once('../include/config.php');
-
-    // 判斷 session 是否存在，若不存在則轉至登入頁
-    if(empty($_SESSION['admin_name']) or empty($_SESSION['admin_account'])){
-        header('location: login.php');
-    }
 ?>
 <!doctype html>
 <html lang="en">
 
 <head>
-    <title>管理後台</title>
+    <title>Title</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
@@ -29,19 +24,33 @@
 <body>
     <header>
         <?php include_once('navbar.php') ?>
-        <div class="container pt-5">
-            
-        </div>
     </header>
     <main>
-        <div class="container pt-5">
-            <div class="row">
-                管理後台
-            </div>
+        <div class="container py-5">
+            <form action="login_check.php" method="post">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <div class="mb-3">
+                            <label for="account" class="form-label">帳號</label>
+                            <input type="text" class="form-control" name="account" require>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pw" class="form-label">密碼</label>
+                            <input type="password" class="form-control" name="pw" require>
+                        </div>
+                        <div class="mb-3 text-center">
+                            <button type="submit" class="btn btn-primary">
+                                登入
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
         </div>
     </main>
-    <footer>
-        <!-- place footer here -->
+    <footer class="bg-dark">
+        <?php include_once('footer.php') ?>
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
     <script
@@ -53,16 +62,6 @@
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
-
-    <script>
-        function del(id,title) {
-            // 顯示確認視窗
-            if(confirm("您確定要刪除「"+title+"」嗎？")){
-                // 指定轉址
-                window.location.href = '17-2.php?id='+id;
-            }
-        }
-    </script>
 </body>
 
 </html>

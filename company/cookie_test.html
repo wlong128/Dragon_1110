@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>Cookie Test</title>
+</head>
+<body>
+
+<h2>Cookie Write Test</h2>
+
+<button onclick="writeCookie()">Write Cookie</button>
+<button onclick="readCookie()">Read Cookie</button>
+
+<pre id="output"></pre>
+
+<script>
+function writeCookie() {
+    document.cookie = "test_cookie=hello; path=/; max-age=3600; SameSite=Lax";
+    document.getElementById('output').textContent =
+        "After write:\n" + document.cookie;
+    localStorage.setItem('member_id', "id");
+    localStorage.setItem('member_name', "name");
+}
+
+function readCookie() {
+    document.getElementById('output').textContent =
+        "Current cookies:\n" + document.cookie;
+}
+</script>
+
+</body>
+</html>

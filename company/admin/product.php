@@ -21,8 +21,8 @@
     if($conn){
         //echo 'conn done';
 
-        // 設定 SQL 查詢指令
-        $sql = 'SELECT * FROM news';
+        // 設定 SQL 查詢指令 (查詢 product 產品資料表所有欄位資料並連接 product_type 產品分類資料表)
+        $sql = 'SELECT * FROM product INNER JOIN product_type USING(product_type_id)';
         // 向資料庫下指令並取回資料
         $datas = mysqli_query($conn, $sql);
         
@@ -32,7 +32,7 @@
 <html lang="en">
 
 <head>
-    <title>新聞管理</title>
+    <title>產品管理</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
@@ -51,24 +51,26 @@
     <header>
         <?php include_once('navbar.php') ?>
         <div class="container pt-5">
-            <h1>新聞管理</h1>
+            <h1>產品管理</h1>
         </div>
     </header>
     <main>
         <div class="container pt-5">
             <div class="row">
                 <div class="col-12 text-end pb-3">
-                    <a href="news_post.php" class="btn btn-info btn-sm">新增</a>
+                    <a href="product_post.php" class="btn btn-info btn-sm">新增</a>
+                    <a href="product_type.php" class="btn btn-success btn-sm">分類管理</a>
                 </div>
                 <div class="col-12">
                     <table class="table table-bordered">
                         <tr>
-                            <th>編號</th>
-                            <th>新聞標題</th>
-                            <th width="100">焦點圖片</th>
-                            <!-- <th>新聞內容</th> -->
-                            <th>新聞日期</th>
-                            <th>發佈人</th>
+                            <th>流口號</th>
+                            <th>產品編號</th>
+                            <th>產品名稱</th>
+                            <th width="100">產品圖片</th>
+                            <!-- <th>產品內容</th> -->
+                            <th>產品分類</th>
+                            <th>是否上架</th>
                             <th>功能</th>
                         </tr>
                         <?php
@@ -77,18 +79,19 @@
                                 // 將資料表的內容一筆筆抓到 $row 中
                                 while($row = mysqli_fetch_assoc($datas)){
                                     echo '<tr>';
-                                    echo '<td>'.$row['news_id'].'</td>';
-                                    echo '<td><a href="../news_content.html?id='.$row['news_id'].
-                                          '">'.$row['news_title'].'</a></td>';
-                                    echo '<td><img class="img-fluid" src="../upload/news/'.
-                                            $row['news_img'].
+                                    echo '<td>'.$row['product_id'].'</td>';
+                                    echo '<td>'.$row['product_sn'].'</td>';
+                                    echo '<td><a href="../product_content.html?id='.$row['product_id'].
+                                          '">'.$row['product_name'].'</a></td>';
+                                    echo '<td><img class="img-fluid" src="../upload/product/'.
+                                            $row['product_img'].
                                             '" alt=""></td>';
-                                    // echo '<td>'.$row['news_content'].'</td>';
-                                    echo '<td>'.$row['news_created'].'</td>';
-                                    echo '<td>'.$row['news_poster'].'</td>';
-                                    echo '<td><a href="news_edit.php?id='.$row['news_id'].'" class="btn btn-info">編輯</a>';
-                                    // 製作 刪除 按鈕，並傳送新聞編號給 del(id,title) 函數
-                                    echo '<btn onclick="del('.$row['news_id'].',\''.$row['news_title'].'\')" class="btn btn-danger">刪除</btn></td>';
+                                    // echo '<td>'.$row['product_content'].'</td>';
+                                    echo '<td>'.$row['product_type'].'</td>';
+                                    echo '<td>'.$row['product_posted'].'</td>';
+                                    echo '<td><a href="product_edit.php?id='.$row['product_id'].'" class="btn btn-info">編輯</a>';
+                                    // 製作 刪除 按鈕，並傳送產品編號給 del(id,title) 函數
+                                    echo '<btn onclick="del('.$row['product_id'].',\''.$row['product_name'].'\')" class="btn btn-danger">刪除</btn></td>';
                                     echo '</tr>';
                                 }
                             }
@@ -118,7 +121,7 @@
             // 顯示確認視窗
             if(confirm("您確定要刪除「"+title+"」嗎？")){
                 // 指定轉址
-                window.location.href = 'news_del.php?id='+id;
+                window.location.href = 'product_del.php?id='+id;
             }
         }
     </script>

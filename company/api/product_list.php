@@ -1,4 +1,5 @@
 <?php
+    $type_id = isset($_GET['type']) ? $_GET['type'] : '%';
 
     $host = 'localhost';      // 主機位址
     $db = 'dragon1101';        // 資料庫名稱
@@ -18,10 +19,10 @@
         // 1:LIMIT n，這是取最得前面的 n 筆資料
         // 2:LIMIT m,n，這是先省略 m 筆資料，再取得最前面的 n 筆資料
         // 也就是可以把 n 當成每頁取得筆數，m/每頁筆數+1=目前的頁數
-        $n = 9; // 每頁取得9筆
+        $n = 20; // 每頁取得20筆
         // 三元運算子 (條件)?值1:值2
         $m = isset($_GET['p']) ? ($_GET['p'] - 1) * $n : 0;  // 目前是第1頁 $m = (目前頁數-1)*每頁筆數
-        $sql = "SELECT * FROM news LIMIT $m, $n";
+        $sql = "SELECT * FROM product INNER JOIN product_type USING(product_type_id) WHERE product_posted = '上架' AND product_type_id LIKE '$type_id' LIMIT $m, $n";
 
         // 向資料庫下指令並取回資料
         $datas = mysqli_query($conn, $sql);
@@ -30,12 +31,13 @@
         $i = 0;
         while($row = mysqli_fetch_assoc($datas)){
             // 組合出 $rows 的資料表格 (二維陣列)
-            $rows[$i]['id']=$row['news_id'];
-            $rows[$i]['title']=$row['news_title'];
-            $rows[$i]['img']=$row['news_img'];
-            // $rows[$i]['content']=$row['news_content'];
-            $rows[$i]['date']=$row['news_created'];
-            // $rows[$i]['poster']=$row['news_poster'];
+            $rows[$i]['id']=$row['product_id'];
+            $rows[$i]['sn']=$row['product_sn'];
+            $rows[$i]['name']=$row['product_name'];
+            $rows[$i]['img']=$row['product_img'];
+            // $rows[$i]['content']=$row['product_content'];
+            $rows[$i]['price']=$row['product_price'];
+            // $rows[$i]['posted']=$row['product_posted'];
             // 增加1列
             $i++;
         }
