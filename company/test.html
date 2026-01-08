@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="utf-8">
+    <title>Cookie Test</title>
+</head>
+<body>
+    <h1>Cookie 測試頁</h1>
+
+    <button id="write">寫入 Cookie</button>
+    <button id="read">讀取 Cookie</button>
+    <button id="clear">清除 Cookie</button>
+
+    <pre id="output"></pre>
+
+    <script>
+        const out = document.getElementById("output");
+
+        function log(msg) {
+            out.textContent += msg + "\n";
+        }
+
+        document.getElementById("write").onclick = () => {
+            document.cookie = "member_id=dragon; path=/; max-age=3600";
+            document.cookie = "member_name=DragonWu; path=/; max-age=3600";
+            log("已寫入 Cookie");
+        };
+
+        document.getElementById("read").onclick = () => {
+            log("document.cookie = " + document.cookie);
+        };
+
+        document.getElementById("clear").onclick = () => {
+            document.cookie = "member_id=; path=/; max-age=0";
+            document.cookie = "member_name=; path=/; max-age=0";
+            log("已清除 Cookie");
+        };
+    </script>
+</body>
+</html>

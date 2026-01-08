@@ -121,14 +121,9 @@
         // jQuery AJAX：提交註冊表單到 api/register.php
         $(function () {
             // 設定 cookie 的函數
-            function setCookie(name, value, days) {
-                let expires = "";
-                if (days) {
-                    const date = new Date();
-                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                    expires = "; expires=" + date.toUTCString();
-                }
-                document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
+            function setCookie(name, value, days = 7) {
+                const maxAge = days * 24 * 60 * 60;
+                document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=${maxAge}; SameSite=Lax`;
             }
 
             $('#member_form').on('submit', function (e) {
@@ -153,17 +148,21 @@
                     dataType: 'json'
                 }).done(function (resp) {
                     if (resp.msg == 'success') {
+
                         // 登入成功能，將 resp.id 與 resp.name 存到 cookie
                         var days = 7;
                         var expires = new Date(Date.now() + days * 864e5).toUTCString();
-                        document.cookie = "member_id=" + resp.data.id + "; expires=" + expires + "; path=/";
-                        document.cookie = "member_name=" + encodeURIComponent(resp.data.name) + "; expires=" + expires + "; path=/";
+                    
+                        // 寫入（全部 encode）
+                        setCookie("member_id", resp.data.id);
+                        setCookie("member_name", resp.data.name);
                         
                         // console.log(resp)
                         alert('登入成功');
                         
                         // 導回上一頁
-                        window.history.back();
+                        window.location.href = 'index.html';
+                        // window.history.back();
                     } else {
                         alert('登入失敗：' + resp.data);
                         console.log(resp)
