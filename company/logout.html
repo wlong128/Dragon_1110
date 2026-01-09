@@ -1,0 +1,15 @@
+<html>
+    <script>
+        // 清除 cookie 並重定向到登入頁面
+        function deleteCookie(name) {
+            document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Lax';
+        }
+
+        // 清除所有相關 cookie
+        deleteCookie("member_id");
+        deleteCookie("member_name");
+
+        // 重定向到登入頁面
+        window.location.href = "index.html";
+    </script>
+</html>

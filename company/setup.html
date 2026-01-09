@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 
 <head>
-    <title>會員登入</title>
+    <title>會員資料</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -21,25 +21,43 @@
             <form id="member_form">
                 <div class="row mb-3">
                     <div class="col-12 text-center">
-                        <h1>會員登入</h1>
+                        <h1>會員資料</h1>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-3 text-start text-md-end pt-1">帳號</div>
                     <div class="col-9">
-                        <input type="text" class="form-control" id="member_id" required />
+                        <input type="text" class="form-control" id="member_id" disabled />
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-3 text-start text-md-end pt-1">密碼</div>
                     <div class="col-9">
-                        <input type="password" class="form-control" id="member_pw" required />
+                        <a href="change_password.html" class="btn btn-warning">變更密碼</a>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-3 text-start text-md-end pt-1">真實姓名</div>
+                    <div class="col-9">
+                        <input type="text" class="form-control" id="member_name" required />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-3 text-start text-md-end pt-1">聯絡電話</div>
+                    <div class="col-9">
+                        <input type="text" class="form-control" id="member_tel" required />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-3 text-start text-md-end pt-1">送貨地址</div>
+                    <div class="col-9">
+                        <input type="text" class="form-control" id="member_address" required />
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-3 text-start text-md-end pt-1"></div>
                     <div class="col-9">
-                        <button type="submit" id="send" class="btn btn-success">登入</button>
+                        <button type="submit" id="save" class="btn btn-success">儲存</button>
                     </div>
                 </div>
             </form>
@@ -118,24 +136,27 @@
         includeHTML();
     </script>
     <script>
-        // jQuery AJAX：提交登入表單到 api/login.php
+        // jQuery AJAX：提交註冊表單到 api/register.php
         $(function () {
-            // 設定 cookie 的函數
-            function setCookie(name, value, days = 7) {
-                if (!value || value === 'undefined' || value === 'null') {
-                    return false;
+            // 取得 member_id
+            $member_id = getCookie('member_id');
+
+            $.ajax({
+                url: 'api/member.php',
+                method: 'POST',
+                data: { member_id: $member_id },
+                dataType: 'json'
+            }).done(function (resp) {
+                if (resp.msg == 'success') {
+                    $('#member_id').val(resp.data.id);
+                    $('#member_name').val(resp.data.name);
+                    $('#member_tel').val(resp.data.tel);
+                    $('#member_address').val(resp.data.address);
                 }
-                
-                const expires = new Date();
-                expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
-                
-                const cookieValue = name + '=' + encodeURIComponent(value) + 
-                    '; expires=' + expires.toUTCString() + 
-                    '; path=/; SameSite=Lax';
-                
-                document.cookie = cookieValue;
-                return true;
-            }
+            }).fail(function (jqXHR, textStatus) {
+                alert('取得會員資料失敗：' + textStatus);
+            });
+
 
             $('#member_form').on('submit', function (e) {
                 // 阻止表單預設提交行為
@@ -143,39 +164,35 @@
 
                 var member_id = $('#member_id').val().trim();
                 var member_pw = $('#member_pw').val();
+                var member_pw_confirm = $('#member_pw_confirm').val();
 
                 if (!member_id) { alert('請輸入帳號'); return; }
                 if (!member_pw) { alert('請輸入密碼'); return; }
+                if (member_pw !== member_pw_confirm) { alert('密碼與確認密碼不相符'); return; }
 
                 var postData = {
                     member_id: member_id,
                     member_pw: member_pw,
+                    member_name: $('#member_name').val(),
+                    member_tel: $('#member_tel').val(),
+                    member_address: $('#member_address').val()
                 };
 
                 $.ajax({
-                    url: 'api/login.php',
+                    url: 'api/register.php',
                     method: 'POST',
                     data: postData,
                     dataType: 'json'
                 }).done(function (resp) {
                     if (resp.msg == 'success') {
-                        // 檢查回應資料是否存在
-                        if (!resp.data || !resp.data.id || !resp.data.name) {
-                            alert('登入失敗：伺服器回應資料錯誤');
-                            return;
-                        }
-
-                        // 登入成功，將 resp.id 與 resp.name 存到 cookie
-                        setCookie("member_id", resp.data.id);
-                        setCookie("member_name", resp.data.name);
-                        
-                        alert('登入成功');
-                        window.location.href = 'index.html';
+                        alert('註冊成功');
+                        // console.log(resp)
+                        window.location.href = 'login.html';
                     } else {
-                        alert('登入失敗：' + resp.data);
+                        alert('註冊失敗：' + (resp && resp.error ? resp.error : '未知錯誤'));
                     }
                 }).fail(function (jqXHR, textStatus) {
-                    alert('連線錯誤：' + textStatus);
+                    alert('帳號重覆，請修改後重新註冊');
                 });
             });
         });
