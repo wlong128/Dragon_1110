@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+    <title>聯絡我們</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        .map-wrap {
+            width: 100%;
+            height: 420px;
+            /* 你要更高可改 450/500 */
+            overflow: hidden;
+        }
+
+        .map-wrap iframe {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <div w3-include-html="navbar.html"></div>
+    </header>
+    <main>
+        <!-- Google Map Start -->
+        <section class="w-100">
+            <div class="container-fluid px-0">
+                <div class="map-wrap">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d903.668869150754!2d121.53165759113317!3d25.045085009114732!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a96345d7733d%3A0xd26668a18ab83761!2z5YWJ6I-v5ZWG5aC0!5e0!3m2!1szh-TW!2stw!4v1768222817884!5m2!1szh-TW!2stw"
+                        width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </section>
+        <!-- Google Map End -->
+
+
+        <!-- Contact Start -->
+        <section class="py-5 bg-white">
+            <div class="container">
+                <div class="row g-5 align-items-start">
+
+                    <!-- Left: Form -->
+                    <div class="col-lg-7">
+                        <h2 class="fw-bold mb-4">告訴我們您的需求</h2>
+
+                        <!-- mailto form -->
+                        <form id="contactForm" action="#" method="GET">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control form-control-lg" id="name" name="name" placeholder="姓名 *"
+                                        required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="tel" class="form-control form-control-lg" id="phone" name="phone" placeholder="電話 *"
+                                        required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control form-control-lg" id="email" name="email"
+                                        placeholder="E-mail *" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control form-control-lg" id="subject" name="subject"
+                                        placeholder="主旨 *" required>
+                                </div>
+                                <div class="col-12">
+                                    <textarea class="form-control form-control-lg" id="message" rows="7" name="message"
+                                        placeholder="訊息內容 *（例如：需求設備、預算範圍、使用人數、交付時間…）" required></textarea>
+                                </div>
+
+                                <div class="col-12 pt-2">
+                                    <button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill">
+                                        送出訊息
+                                    </button>
+                                    <small class="text-muted ms-3">
+                                        送出後將開啟您的郵件程式寄信。
+                                    </small>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Right: Info -->
+                    <div class="col-lg-5">
+                        <h2 class="fw-bold mb-4">聯絡我們</h2>
+
+                        <p class="text-muted">
+                            我們提供桌上型電腦、筆記型電腦、平板電腦與各式週邊設備銷售，
+                            同時可協助企業進行設備規劃、採購建議與基本部署諮詢。
+                            歡迎留下需求，我們將盡快與您聯繫。
+                        </p>
+
+                        <ul class="list-unstyled mt-4">
+                            <li class="d-flex align-items-start mb-3">
+                                <i class="bi bi-geo-alt fs-5 text-primary me-3"></i>
+                                <div>
+                                    <div class="fw-semibold">地址</div>
+                                    <div class="text-muted">台灣（請填入實際地址）</div>
+                                </div>
+                            </li>
+
+                            <li class="d-flex align-items-start mb-3">
+                                <i class="bi bi-envelope fs-5 text-primary me-3"></i>
+                                <div>
+                                    <div class="fw-semibold">E-mail</div>
+                                    <div class="text-muted">
+                                        <a class="text-decoration-none"
+                                            href="mailto:sales@yourdomain.com">sales@yourdomain.com</a>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="d-flex align-items-start mb-3">
+                                <i class="bi bi-telephone fs-5 text-primary me-3"></i>
+                                <div>
+                                    <div class="fw-semibold">電話</div>
+                                    <div class="text-muted">
+                                        <a class="text-decoration-none" href="tel:+886900000000">+886 900-000-000</a>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="d-flex align-items-start">
+                                <i class="bi bi-clock fs-5 text-primary me-3"></i>
+                                <div>
+                                    <div class="fw-semibold">服務時間</div>
+                                    <div class="text-muted">週一至週五 09:00–18:00</div>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div class="mt-4 p-3 bg-light rounded-3">
+                            <div class="fw-semibold mb-1">建議您提供以下資訊，回覆會更快</div>
+                            <div class="text-muted small">
+                                需求類型（採購/規劃/維護）、使用人數、預算範圍、期望交付日、是否需要到場評估
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- Contact End -->
+    </main>
+    <footer class="bg-dark">
+        <div w3-include-html="footer.html"></div>
+    </footer>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+
+    <!-- jQuery CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script>
+        // 引入外部檔案所必須使用的函數
+        function includeHTML() {
+            var z, i, elmnt, file, xhttp;
+            /* Loop through a collection of all HTML elements: */
+            z = document.getElementsByTagName("*");
+            for (i = 0; i < z.length; i++) {
+                elmnt = z[i];
+                /*search for elements with a certain atrribute:*/
+                file = elmnt.getAttribute("w3-include-html");
+                if (file) {
+                    /* Make an HTTP request using the attribute value as the file name: */
+                    xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4) {
+                            // 載入成功
+                            if (this.status == 200) {
+                                elmnt.innerHTML = this.responseText;
+                                // 載入完成後，檢查會員狀態並更新選單 
+                                checkMemberStatus();
+                            }
+                            // 載入失敗(404 找不到檔案)
+                            if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
+                            /* Remove the attribute, and call this function once more: */
+                            elmnt.removeAttribute("w3-include-html");
+                            includeHTML();
+                        }
+                    }
+                    xhttp.open("GET", file, true);
+                    xhttp.send();
+                    /* Exit the function: */
+                    return;
+                }
+            }
+        }
+        function getCookie(name) {
+            let matches = document.cookie.match(new RegExp(
+                "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+            ));
+            return matches ? decodeURIComponent(matches[1]) : undefined;
+        }
+        function checkMemberStatus() {
+            var memberName = getCookie('member_name');
+            var memberId = getCookie('member_id');
+            if (memberName) {
+                // 已登入，顯示會員選單
+                $('.member_block').css('display', 'block');
+                $('.member_none').css('display', 'none');
+            } else {
+                // 未登入，顯示非會員選單
+                $('.member_block').css('display', 'none');
+                $('.member_none').css('display', 'block');
+            }
+        }
+        // 開始引入外部檔案
+        includeHTML();
+    </script>
+
+    <script>
+        // 檢查是否有登入的 cookie，若有則顯示歡迎訊息
+        $(function () {
+            var memberName = getCookie('member_name');
+            var memberId = getCookie('member_id');
+            if (memberName) {
+                $('#showCookie').text('歡迎(' + memberId + ')回來，' + memberName + '！');
+            }
+        });
+    </script>
+
+    <script>
+        $(function () {
+            // 你的收件信箱（請改成公司實際收件人）
+            const toEmail = "wlong@yahoo.com.tw";
+
+            $("#contactForm").on("submit", function (e) {
+                e.preventDefault();
+
+                const name = $("#name").val().trim();
+                const phone = $("#phone").val().trim();
+                const email = $("#email").val().trim();
+                const subject = $("#subject").val().trim();
+                const message = $("#message").val().trim();
+
+                $.ajax({
+                    url: 'api/contact.php',
+                    type: 'POST',
+                    data: {
+                        name: name,
+                        phone: phone,
+                        email: email,
+                        subject: subject,
+                        message: message
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.msg === 'success') {
+                            alert(response.data);
+                            // 清空表單
+                            $("#contactForm")[0].reset();
+                        } else {
+                            alert("發生錯誤，請稍後再試。");
+                        }
+                    },
+                    error: function () {
+                        alert("無法連接到伺服器，請稍後再試。");
+                    }
+                });
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>

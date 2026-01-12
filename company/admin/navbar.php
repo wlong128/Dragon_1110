@@ -1,6 +1,6 @@
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="#">Navbar</a>
+                <a class="navbar-brand" href="#">烏龍商場</a>
                 <button
                     class="navbar-toggler d-lg-none"
                     type="button"
@@ -22,6 +22,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="<?= URL ?>product.html">網路購物</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= URL ?>contact.html">聯絡我們</a>
+                        </li>
                         <?php
                         // 判斷 session 是否存在，若存在，則顯示管理功能
                         if (!empty($_SESSION['admin_name']) and !empty($_SESSION['admin_account'])) {
@@ -38,6 +41,7 @@
                                         aria-labelledby="dropdownId">
                                         <a class="dropdown-item" href="'.URL.'admin/news.php">新聞管理</a>
                                         <a class="dropdown-item" href="'.URL.'admin/product.php">產品管理</a>
+                                        <a class="dropdown-item" href="'.URL.'admin/contact.php">留言管理</a>
                                         <a class="dropdown-item" href="'.URL.'admin/logout.php">登出</a>
                                     </div>
                                 </li>';

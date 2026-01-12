@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智慧企業解決方案 - 數位轉型專家</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0066cc;
+            --secondary-color: #f0f4f8;
+            --dark-color: #1a2332;
+            --accent-color: #00d4ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* 導航欄 */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link {
+            color: #666 !important;
+            margin: 0 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0052a3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
+        }
+
+        /* 英雄區段 */
+        .hero {
+            background: linear-gradient(135deg, #f0f4f8 0%, #e8f0f8 100%);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .hero-image {
+            text-align: center;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* 特性卡片 */
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            background: white;
+            border: 1px solid #f0f0f0;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .feature-card h3 {
+            color: var(--dark-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* 特性區段 */
+        .features-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        /* 解決方案區段 */
+        .solutions-section {
+            padding: 80px 0;
+            background: var(--secondary-color);
+        }
+
+        .solutions-section h2 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .solutions-section .section-subtitle {
+            color: var(--dark-color);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .solutions-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .solutions-image {
+            flex: 1;
+        }
+
+        .solutions-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .solutions-text {
+            flex: 1;
+        }
+
+        .solutions-text p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        /* 案例展示區段 */
+        .showcase-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .showcase-section h2 {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .showcase-section .section-title {
+            text-align: center;
+            color: var(--dark-color);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .showcase-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .showcase-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .showcase-card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .showcase-card-body {
+            padding: 1.5rem;
+        }
+
+        .showcase-card h3 {
+            color: var(--dark-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .showcase-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* 部落格區段 */
+        .blog-section {
+            padding: 80px 0;
+            background: var(--secondary-color);
+        }
+
+        .blog-section h2 {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .blog-section .section-title {
+            text-align: center;
+            color: var(--dark-color);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .blog-card-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .blog-card-body {
+            padding: 1.5rem;
+        }
+
+        .blog-date {
+            color: var(--primary-color);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-card h3 {
+            color: var(--dark-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .blog-card p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: #0052a3;
+            margin-right: -5px;
+        }
+
+        /* 額外特性區段 */
+        .extra-features-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .extra-features-section h2 {
+            text-align: center;
+            color: var(--dark-color);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+        }
+
+        .extra-features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        /* 頁腳 */
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: #999;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .solutions-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .showcase-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .extra-features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 平滑滾動 */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* 淡入動畫 */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <!-- 導航欄 -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <i class="fas fa-rocket"></i> 智慧企業
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#features">功能特性</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#solutions">解決方案</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#showcase">案例展示</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#blog">最新資訊</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">聯絡我們</a></li>
+                </ul>
+                <button class="btn btn-primary ms-3">立即開始</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄區段 -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 hero-content">
+                    <p style="color: var(--primary-color); font-weight: 600; margin-bottom: 1rem;">
+                        <i class="fas fa-star"></i> 企業數位轉型平台
+                    </p>
+                    <h1>智慧企業解決方案</h1>
+                    <p>透過先進的技術與創新的方案，幫助您的企業實現數位轉型，提升競爭力，開創無限商機。</p>
+                    <div>
+                        <button class="btn btn-primary btn-lg me-3">
+                            <i class="fas fa-play-circle"></i> 免費試用
+                        </button>
+                        <button class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-video"></i> 觀看演示
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6 hero-image">
+                    <div style="font-size: 8rem; color: var(--primary-color); opacity: 0.8;">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 功能特性區段 -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4 fade-in delay-1">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>創意解決方案</h3>
+                        <p>我們提供創新的技術方案，幫助企業解決複雜的業務挑戰，實現業務目標。</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 fade-in delay-2">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <h3>成本優化</h3>
+                        <p>透過智慧化管理，降低企業運營成本，提高資源利用效率，增加利潤空間。</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 fade-in delay-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>專業團隊</h3>
+                        <p>擁有多年行業經驗的專業團隊，為您提供全方位的技術支持與諮詢服務。</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 fade-in delay-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>24/7 客服支持</h3>
+                        <p>全天候客服團隊隨時待命，為您解決任何問題，確保業務順利運營。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 解決方案區段 -->
+    <section class="solutions-section" id="solutions">
+        <div class="container">
+            <div class="solutions-content">
+                <div class="solutions-image fade-in">
+                    <div style="font-size: 6rem; color: var(--primary-color); text-align: center; padding: 3rem;">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                </div>
+                <div class="solutions-text fade-in">
+                    <p style="color: var(--primary-color); font-weight: 600;">
+                        <i class="fas fa-check-circle"></i> 我們的優勢
+                    </p>
+                    <h2 class="section-subtitle">為您的企業提供最佳解決方案</h2>
+                    <p>我們深入了解企業面臨的挑戰，結合行業最佳實踐與前沿技術，為您量身定制解決方案。無論您是初創企業還是大型集團，我們都能幫助您實現業務目標，提升市場競爭力。</p>
+                    <p>我們的服務涵蓋企業諮詢、系統集成、應用開發、數據分析等多個領域，致力於為客戶創造最大價值。</p>
+                    <button class="btn btn-primary btn-lg">
+                        <i class="fas fa-arrow-right"></i> 了解更多
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 案例展示區段 -->
+    <section class="showcase-section" id="showcase">
+        <div class="container">
+            <h2>成功案例</h2>
+            <h3 class="section-title">12+ 行業領先企業的選擇</h3>
+            <div class="showcase-grid">
+                <div class="showcase-card fade-in delay-1">
+                    <div class="showcase-card-image">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <div class="showcase-card-body">
+                        <h3>零售電商平台</h3>
+                        <p>幫助知名零售企業建立全渠道電商平台，提升銷售額 150%。</p>
+                    </div>
+                </div>
+                <div class="showcase-card fade-in delay-2">
+                    <div class="showcase-card-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <div class="showcase-card-body">
+                        <h3>醫療健康系統</h3>
+                        <p>開發智慧醫療管理系統，優化患者體驗，提高診療效率。</p>
+                    </div>
+                </div>
+                <div class="showcase-card fade-in delay-3">
+                    <div class="showcase-card-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="showcase-card-body">
+                        <h3>教育培訓平台</h3>
+                        <p>建立線上教育平台，服務 50,000+ 學生，實現教育資源共享。</p>
+                    </div>
+                </div>
+                <div class="showcase-card fade-in delay-1">
+                    <div class="showcase-card-image" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <div class="showcase-card-body">
+                        <h3>製造業 ERP 系統</h3>
+                        <p>實施企業資源計畫系統，提升生產效率，降低成本 30%。</p>
+                    </div>
+                </div>
+                <div class="showcase-card fade-in delay-2">
+                    <div class="showcase-card-image" style="background: linear-gradient(135deg, #ff9a56 0%, #ff6a88 100%);">
+                        <i class="fas fa-bank"></i>
+                    </div>
+                    <div class="showcase-card-body">
+                        <h3>金融服務平台</h3>
+                        <p>開發安全可靠的金融交易系統，服務百萬級用戶。</p>
+                    </div>
+                </div>
+                <div class="showcase-card fade-in delay-3">
+                    <div class="showcase-card-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <div class="showcase-card-body">
+                        <h3>物流管理系統</h3>
+                        <p>建立智慧物流平台，實現全程追蹤，提升配送速度。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 部落格區段 -->
+    <section class="blog-section" id="blog">
+        <div class="container">
+            <h2>最新資訊</h2>
+            <h3 class="section-title">50+ 行業洞察與技術文章</h3>
+            <div class="blog-grid">
+                <div class="blog-card fade-in delay-1">
+                    <div class="blog-card-image">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="blog-card-body">
+                        <p class="blog-date">2024年1月10日</p>
+                        <h3>人工智慧如何改變企業運營</h3>
+                        <p>探討 AI 技術在企業管理、客戶服務、數據分析等領域的應用與前景。</p>
+                        <a href="#" class="read-more">閱讀更多 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="blog-card fade-in delay-2">
+                    <div class="blog-card-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="blog-card-body">
+                        <p class="blog-date">2024年1月8日</p>
+                        <h3>企業資訊安全最佳實踐</h3>
+                        <p>深入講解現代企業如何應對網路威脅，保護關鍵數據資產。</p>
+                        <a href="#" class="read-more">閱讀更多 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="blog-card fade-in delay-3">
+                    <div class="blog-card-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <div class="blog-card-body">
+                        <p class="blog-date">2024年1月5日</p>
+                        <h3>雲計算時代的企業轉型</h3>
+                        <p>分析雲計算技術如何幫助企業降低成本，提升靈活性與可擴展性。</p>
+                        <a href="#" class="read-more">閱讀更多 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 額外特性區段 -->
+    <section class="extra-features-section">
+        <div class="container">
+            <h2>核心優勢</h2>
+            <div class="extra-features-grid">
+                <div class="feature-card fade-in delay-1">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>數據驅動決策</h3>
+                    <p>透過大數據分析與可視化，幫助管理層做出更科學、更精準的決策。</p>
+                </div>
+                <div class="feature-card fade-in delay-2">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>跨平台支持</h3>
+                    <p>完美支持 Web、移動端、桌面應用，為用戶提供一致的體驗。</p>
+                </div>
+                <div class="feature-card fade-in delay-3">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>高性能架構</h3>
+                    <p>採用微服務架構與雲原生技術，確保系統高可用與高性能。</p>
+                </div>
+                <div class="feature-card fade-in delay-4">
+                    <div class="feature-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>合作夥伴生態</h3>
+                    <p>與行業領先企業合作，為客戶提供完整的解決方案與服務。</p>
+                </div>
+                <div class="feature-card fade-in delay-1">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>培訓與認證</h3>
+                    <p>提供專業培訓課程與認證計畫，幫助團隊提升技能水平。</p>
+                </div>
+                <div class="feature-card fade-in delay-2">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>全球服務網絡</h3>
+                    <p>在全球多個地區設有服務中心，為客戶提供本地化支持。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 聯絡區段 -->
+    <section style="padding: 80px 0; background: var(--secondary-color);" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 style="color: var(--dark-color); font-size: 2.5rem; font-weight: 700; margin-bottom: 1.5rem;">
+                        準備好開始您的數位轉型之旅嗎？
+                    </h2>
+                    <p style="color: #666; font-size: 1.1rem; margin-bottom: 2rem;">
+                        立即聯絡我們的專業團隊，獲取免費的企業評估與解決方案建議。
+                    </p>
+                    <div>
+                        <button class="btn btn-primary btn-lg me-3 mb-2">
+                            <i class="fas fa-envelope"></i> 發送郵件
+                        </button>
+                        <button class="btn btn-outline-primary btn-lg mb-2">
+                            <i class="fas fa-phone"></i> 致電我們
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁腳 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>關於我們</h4>
+                    <ul>
+                        <li><a href="#">公司簡介</a></li>
+                        <li><a href="#">發展歷程</a></li>
+                        <li><a href="#">企業文化</a></li>
+                        <li><a href="#">加入我們</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>產品與服務</h4>
+                    <ul>
+                        <li><a href="#">企業管理系統</a></li>
+                        <li><a href="#">數據分析平台</a></li>
+                        <li><a href="#">雲計算服務</a></li>
+                        <li><a href="#">技術諮詢</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>客戶支持</h4>
+                    <ul>
+                        <li><a href="#">幫助中心</a></li>
+                        <li><a href="#">文檔資源</a></li>
+                        <li><a href="#">社區論壇</a></li>
+                        <li><a href="#">聯絡我們</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>法律與政策</h4>
+                    <ul>
+                        <li><a href="#">隱私政策</a></li>
+                        <li><a href="#">服務條款</a></li>
+                        <li><a href="#">安全政策</a></li>
+                        <li><a href="#">Cookie 政策</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 智慧企業解決方案。版權所有。 | 
+                    <a href="#" style="color: #999; text-decoration: none;">隱私政策</a> | 
+                    <a href="#" style="color: #999; text-decoration: none;">服務條款</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // 平滑滾動導航
+            $('a[href^="#"]').on('click', function(e) {
+                e.preventDefault();
+                const target = $(this.getAttribute('href'));
+                if(target.length) {
+                    $('html, body').stop().animate({
+                        scrollTop: target.offset().top - 80
+                    }, 1000);
+                }
+            });
+
+            // 導航欄背景色變化
+            $(window).on('scroll', function() {
+                if($(this).scrollTop() > 50) {
+                    $('.navbar').css('background-color', 'rgba(255, 255, 255, 0.95)');
+                } else {
+                    $('.navbar').css('background-color', 'white');
+                }
+            });
+
+            // 按鈕點擊效果
+            $('.btn-primary, .btn-outline-primary').on('click', function() {
+                $(this).css('transform', 'scale(0.95)');
+                setTimeout(() => {
+                    $(this).css('transform', 'scale(1)');
+                }, 100);
+            });
+
+            // 卡片懸停效果增強
+            $('.feature-card, .showcase-card, .blog-card').on('mouseenter', function() {
+                $(this).css('box-shadow', '0 15px 40px rgba(0, 0, 0, 0.15)');
+            }).on('mouseleave', function() {
+                $(this).css('box-shadow', '0 5px 15px rgba(0, 0, 0, 0.08)');
+            });
+
+            // 計數動畫（用於統計數據）
+            function animateCounter() {
+                const counters = document.querySelectorAll('.counter');
+                counters.forEach(counter => {
+                    const target = parseInt(counter.getAttribute('data-target'));
+                    const increment = target / 100;
+                    let current = 0;
+
+                    const updateCount = () => {
+                        current += increment;
+                        if(current < target) {
+                            counter.textContent = Math.ceil(current);
+                            setTimeout(updateCount, 30);
+                        } else {
+                            counter.textContent = target;
+                        }
+                    };
+                    updateCount();
+                });
+            }
+
+            // 當頁面滾動到特定區域時觸發動畫
+            $(window).on('scroll', function() {
+                const scrollTop = $(this).scrollTop();
+                const windowHeight = $(this).height();
+
+                $('.fade-in').each(function() {
+                    const elementTop = $(this).offset().top;
+                    if(scrollTop + windowHeight > elementTop + 100) {
+                        $(this).addClass('fade-in');
+                    }
+                });
+            });
+
+            // 表單驗證（如果有表單）
+            $('form').on('submit', function(e) {
+                e.preventDefault();
+                alert('感謝您的提交！我們會盡快與您聯絡。');
+                this.reset();
+            });
+
+            // 初始化工具提示
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+
+            // 響應式菜單自動關閉
+            $('.nav-link').on('click', function() {
+                $('.navbar-collapse').collapse('hide');
+            });
+        });
+    </script>
+</body>
+</html>
