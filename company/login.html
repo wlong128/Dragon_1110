@@ -10,6 +10,45 @@
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <style>
+        .captcha-box {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        #captchaCanvas {
+            border: 1px solid #cfd3e1;
+            border-radius: 10px;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        .captcha-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: 6px;
+        }
+
+        .msg {
+            margin-top: 10px;
+            font-size: 13px;
+        }
+
+        .msg.ok {
+            color: #1d7a2d;
+        }
+
+        .msg.err {
+            color: #b42318;
+        }
+    </style>
 </head>
 
 <body>
@@ -36,11 +75,32 @@
                         <input type="password" class="form-control" id="member_pw" required />
                     </div>
                 </div>
+                <div class="row mb-3 align-items-center">
+                    <div class="col-3 text-start text-md-end pt-1">
+                        <label for="captchaInput" class="col-form-label">驗證碼</label>
+                    </div>
+
+                    <div class="col-9">
+                        <div class="d-flex gap-2 align-items-center flex-wrap">
+                            <input id="captchaInput" type="text" class="form-control" placeholder="請輸入右側英文字母"
+                                style="max-width: 420px;" />
+
+                            <canvas id="captchaCanvas" width="140" height="48" class="ms-1" title="點我重整驗證碼"></canvas>
+
+                            <button type="button" id="refreshCaptcha"
+                                class="btn btn-outline-secondary btn-sm">重整</button>
+                        </div>
+
+                        <div class="hint">驗證碼為 4 個英文字母，不分大小寫。</div>
+                    </div>
+                </div>
+
                 <div class="row mb-3">
                     <div class="col-3 text-start text-md-end pt-1"></div>
                     <div class="col-9">
                         <button type="submit" id="send" class="btn btn-success">登入</button>
                     </div>
+                    <div id="msg" class="msg"></div>
                 </div>
             </form>
         </div>
@@ -58,124 +118,251 @@
         crossorigin="anonymous"></script>
     <!-- jQuery CDN -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-        crossorigin="anonymous"></script>
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script>
-        // 引入外部檔案所必須使用的函數
-        function includeHTML() {
-            var z, i, elmnt, file, xhttp;
-            /* Loop through a collection of all HTML elements: */
-            z = document.getElementsByTagName("*");
-            for (i = 0; i < z.length; i++) {
-                elmnt = z[i];
-                /*search for elements with a certain atrribute:*/
-                file = elmnt.getAttribute("w3-include-html");
-                if (file) {
-                    /* Make an HTTP request using the attribute value as the file name: */
-                    xhttp = new XMLHttpRequest();
-                    xhttp.onreadystatechange = function () {
-                        if (this.readyState == 4) {
-                            // 載入成功
-                            if (this.status == 200) { 
-                                elmnt.innerHTML = this.responseText;
-                                // 載入完成後，檢查會員狀態並更新選單 
-                                checkMemberStatus();
-                            }
-                            // 載入失敗(404 找不到檔案)
-                            if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
-                            /* Remove the attribute, and call this function once more: */
-                            elmnt.removeAttribute("w3-include-html");
-                            includeHTML();
+        function includeHTML(callback) {
+            const all = document.querySelectorAll("[w3-include-html]");
+            if (!all.length) {
+                if (typeof callback === "function") callback();
+                return;
+            }
+
+            let pending = all.length;
+
+            all.forEach((elmnt) => {
+                const file = elmnt.getAttribute("w3-include-html");
+                const xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4) {
+                        if (this.status === 200) elmnt.innerHTML = this.responseText;
+                        if (this.status === 404) elmnt.innerHTML = "Page not found.";
+                        elmnt.removeAttribute("w3-include-html");
+
+                        pending--;
+                        if (pending === 0) {
+                            if (typeof callback === "function") callback();
                         }
                     }
-                    xhttp.open("GET", file, true);
-                    xhttp.send();
-                    /* Exit the function: */
-                    return;
-                }
-            }
+                };
+                xhttp.open("GET", file, true);
+                xhttp.send();
+            });
         }
+
         function getCookie(name) {
             let matches = document.cookie.match(new RegExp(
                 "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
             ));
             return matches ? decodeURIComponent(matches[1]) : undefined;
         }
+
         function checkMemberStatus() {
             var memberName = getCookie('member_name');
-            var memberId = getCookie('member_id');
             if (memberName) {
-                // 已登入，顯示會員選單
                 $('.member_block').css('display', 'block');
                 $('.member_none').css('display', 'none');
             } else {
-                // 未登入，顯示非會員選單
                 $('.member_block').css('display', 'none');
                 $('.member_none').css('display', 'block');
             }
         }
-        // 開始引入外部檔案
-        includeHTML();
+
+        // 只在 include 全部完成後檢查一次
+        includeHTML(function () {
+            checkMemberStatus();
+        });
     </script>
     <script>
-        // jQuery AJAX：提交登入表單到 api/login.php
-        $(function () {
-            // 設定 cookie 的函數
-            function setCookie(name, value, days = 7) {
-                if (!value || value === 'undefined' || value === 'null') {
-                    return false;
-                }
-                
-                const expires = new Date();
-                expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
-                
-                const cookieValue = name + '=' + encodeURIComponent(value) + 
-                    '; expires=' + expires.toUTCString() + 
-                    '; path=/; SameSite=Lax';
-                
-                document.cookie = cookieValue;
-                return true;
+        // ===== 驗證碼設定 =====
+        const CAPTCHA_CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZ";
+        const CAPTCHA_LEN = 4;
+        let currentCaptcha = "";
+
+        function randInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function randomCaptchaText() {
+            let s = "";
+            for (let i = 0; i < CAPTCHA_LEN; i++) {
+                s += CAPTCHA_CHARS[randInt(0, CAPTCHA_CHARS.length - 1)];
+            }
+            return s;
+        }
+
+        function drawCaptcha(text) {
+            const canvas = document.getElementById("captchaCanvas");
+            if (!canvas) return; // 防呆：避免元素不存在時報錯
+            const ctx = canvas.getContext("2d");
+            const w = canvas.width, h = canvas.height;
+
+            ctx.clearRect(0, 0, w, h);
+            ctx.fillStyle = "#ffffff";
+            ctx.fillRect(0, 0, w, h);
+
+            // 淺色底紋
+            ctx.strokeStyle = "rgba(120, 140, 200, 0.12)";
+            for (let i = 0; i < 6; i++) {
+                ctx.beginPath();
+                ctx.moveTo(randInt(0, w), randInt(0, h));
+                ctx.lineTo(randInt(0, w), randInt(0, h));
+                ctx.stroke();
             }
 
-            $('#member_form').on('submit', function (e) {
-                // 阻止表單預設提交行為
+            // 干擾線
+            for (let i = 0; i < 5; i++) {
+                ctx.strokeStyle = `rgba(${randInt(40, 180)},${randInt(40, 180)},${randInt(40, 180)},0.55)`;
+                ctx.lineWidth = randInt(1, 2);
+                ctx.beginPath();
+                ctx.moveTo(randInt(0, w), randInt(0, h));
+                ctx.bezierCurveTo(
+                    randInt(0, w), randInt(0, h),
+                    randInt(0, w), randInt(0, h),
+                    randInt(0, w), randInt(0, h)
+                );
+                ctx.stroke();
+            }
+
+            // 雜點
+            for (let i = 0; i < 90; i++) {
+                ctx.fillStyle = `rgba(${randInt(0, 200)},${randInt(0, 200)},${randInt(0, 200)},0.35)`;
+                ctx.fillRect(randInt(0, w), randInt(0, h), 1, 1);
+            }
+
+            // 文字
+            const paddingLeft = 14;
+            const gap = 28;
+            for (let i = 0; i < text.length; i++) {
+                const ch = text[i];
+                const fontSize = randInt(20, 32);
+                const angle = (randInt(-25, 25) * Math.PI) / 180;
+                const x = paddingLeft + i * gap + randInt(-2, 2);
+                const y = randInt(28, 38);
+
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.rotate(angle);
+
+                ctx.font = `700 ${fontSize}px Arial`;
+                ctx.fillStyle = `rgb(${randInt(20, 90)},${randInt(20, 90)},${randInt(20, 90)})`;
+                ctx.shadowColor = "rgba(0,0,0,0.15)";
+                ctx.shadowBlur = 2;
+                ctx.shadowOffsetX = 1;
+                ctx.shadowOffsetY = 1;
+
+                ctx.fillText(ch, 0, 0);
+                ctx.restore();
+            }
+
+            // 邊框
+            ctx.strokeStyle = "#cfd3e1";
+            ctx.lineWidth = 1;
+            ctx.strokeRect(0.5, 0.5, w - 1, h - 1);
+        }
+
+        function refreshCaptcha() {
+            currentCaptcha = randomCaptchaText();
+            drawCaptcha(currentCaptcha);
+            $("#captchaInput").val("");
+            $("#msg").removeClass("ok err").text("");
+        }
+
+        function normalizeCaptchaInput(s) {
+            return String(s || "").trim().toUpperCase();
+        }
+
+        // cookie
+        function setCookie(name, value, days = 7) {
+            if (value === undefined || value === null) return false;
+            const v = String(value);
+            if (!v || v === 'undefined' || v === 'null') return false;
+
+            const expires = new Date();
+            expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+
+            document.cookie =
+                name + '=' + encodeURIComponent(v) +
+                '; expires=' + expires.toUTCString() +
+                '; path=/; SameSite=Lax';
+
+            return true;
+        }
+
+        $(function () {
+            // 1) 先畫出驗證碼（你原本缺這行很常導致看似「無法動」）
+            refreshCaptcha();
+
+            // 2) 綁定重整（避免多次綁定，先 off 再 on）
+            $("#refreshCaptcha").off("click").on("click", function () {
+                refreshCaptcha();
+                $("#captchaInput").focus();
+            });
+
+            $("#captchaCanvas").off("click").on("click", function () {
+                refreshCaptcha();
+                $("#captchaInput").focus();
+            });
+
+            // 3) 表單 submit
+            $("#member_form").off("submit").on("submit", function (e) {
                 e.preventDefault();
 
-                var member_id = $('#member_id').val().trim();
-                var member_pw = $('#member_pw').val();
+                // === 先做驗證碼判斷 ===
+                const userInput = normalizeCaptchaInput($("#captchaInput").val());
+                const expected = normalizeCaptchaInput(currentCaptcha);
 
-                if (!member_id) { alert('請輸入帳號'); return; }
-                if (!member_pw) { alert('請輸入密碼'); return; }
+                if (!userInput) {
+                    $("#msg").removeClass("ok").addClass("err").text("請輸入驗證碼。");
+                    return;
+                }
+
+                if (userInput !== expected) {
+                    $("#msg").removeClass("ok").addClass("err").text("驗證碼錯誤，請再試一次。");
+                    refreshCaptcha();
+                    return;
+                }
+
+                // === 你的原本登入流程（保留） ===
+                var member_id = $("#member_id").val().trim();
+                var member_pw = $("#member_pw").val();
+
+                if (!member_id) { alert("請輸入帳號"); return; }
+                if (!member_pw) { alert("請輸入密碼"); return; }
 
                 var postData = {
                     member_id: member_id,
-                    member_pw: member_pw,
+                    member_pw: member_pw
                 };
 
+                // 避免連點：送出時先 disable
+                $("#send").prop("disabled", true);
+
                 $.ajax({
-                    url: 'api/login.php',
-                    method: 'POST',
+                    url: "api/login.php",
+                    method: "POST",
                     data: postData,
-                    dataType: 'json'
+                    dataType: "json"
                 }).done(function (resp) {
-                    if (resp.msg == 'success') {
-                        // 檢查回應資料是否存在
+                    if (resp && resp.msg === "success") {
                         if (!resp.data || !resp.data.id || !resp.data.name) {
-                            alert('登入失敗：伺服器回應資料錯誤');
+                            alert("登入失敗：伺服器回應資料錯誤");
                             return;
                         }
 
-                        // 登入成功，將 resp.id 與 resp.name 存到 cookie
                         setCookie("member_id", resp.data.id);
                         setCookie("member_name", resp.data.name);
-                        
-                        alert('登入成功');
-                        window.location.href = 'index.html';
+
+                        alert("登入成功");
+                        window.location.href = "index.html";
                     } else {
-                        alert('登入失敗：' + resp.data);
+                        alert("登入失敗：" + (resp?.data ?? "未知錯誤"));
+                        // 登入失敗也重整驗證碼，避免重放
+                        refreshCaptcha();
                     }
                 }).fail(function (jqXHR, textStatus) {
-                    alert('連線錯誤：' + textStatus);
+                    alert("連線錯誤：" + textStatus);
+                }).always(function () {
+                    $("#send").prop("disabled", false);
                 });
             });
         });

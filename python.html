@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PyScript OK</title>
+
+  <!-- ✅ 固定版本（不要用 /latest） -->
+  <link rel="stylesheet" href="https://pyscript.net/releases/2025.11.2/core.css">
+  <script type="module" src="https://pyscript.net/releases/2025.11.2/core.js"></script>
+</head>
+
+<body>
+  <h1>在 HTML 裡跑 Python</h1>
+
+  <pre id="output" style="border:1px solid #ccc; padding:10px;"></pre>
+
+  <div id="msg" style="border:1px solid #ccc; padding:10px;"></div>
+
+  <!-- ✅ 官方推薦：用 script type="py" -->
+  <script type="py">
+from pyscript import display
+
+a = 10
+b = 20
+display(f"Hello from Python!\na={a}\nb={b}\na+b={a+b}", target="output")
+  </script>
+  <script>
+    let a = 10;
+    let b = 20;
+    document.getElementById("msg").innerHTML = `Hello from Python!<br>a=${a}<br>b=${b}<br>a+b=${a + b}`;
+  </script>
+</body>
+</html>

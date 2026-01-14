@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>登入頁（含驗證碼）</title>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; background:#f6f7fb; }
+    .wrap { max-width: 420px; margin: 60px auto; background:#fff; border:1px solid #e7e7ef; border-radius:12px; padding:22px; box-shadow: 0 10px 30px rgba(0,0,0,.06); }
+    h1 { font-size: 20px; margin: 0 0 16px; }
+    .row { margin-bottom: 12px; }
+    label { display:block; font-size: 13px; color:#333; margin-bottom: 6px; }
+    input[type="text"], input[type="password"] { width:100%; padding:10px 12px; border:1px solid #cfd3e1; border-radius:10px; outline:none; }
+    input:focus { border-color:#7aa7ff; box-shadow: 0 0 0 3px rgba(122,167,255,.18); }
+
+    .captcha-box { display:flex; gap:10px; align-items:center; }
+    #captchaCanvas { border:1px solid #cfd3e1; border-radius:10px; background:#fff; cursor:pointer; }
+    .captcha-actions { display:flex; flex-direction:column; gap:8px; }
+    .btn { border:1px solid #cfd3e1; background:#fff; padding:8px 10px; border-radius:10px; cursor:pointer; }
+    .btn:hover { background:#f2f4ff; }
+    .btn-primary { background:#2f6bff; color:#fff; border-color:#2f6bff; }
+    .btn-primary:hover { background:#2457d6; }
+
+    .hint { font-size:12px; color:#666; margin-top: 6px; }
+    .msg { margin-top: 10px; font-size: 13px; }
+    .msg.ok { color:#1d7a2d; }
+    .msg.err { color:#b42318; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <h1>會員登入</h1>
+
+    <form id="loginForm" autocomplete="off">
+      <div class="row">
+        <label for="account">帳號</label>
+        <input id="account" type="text" placeholder="請輸入帳號" />
+      </div>
+
+      <div class="row">
+        <label for="password">密碼</label>
+        <input id="password" type="password" placeholder="請輸入密碼" />
+      </div>
+
+      <div class="row">
+        <label for="captchaInput">驗證碼（點圖片可重整）</label>
+        <div class="captcha-box">
+          <input id="captchaInput" type="text" placeholder="請輸入右側英文字母" style="flex:1;" />
+          <canvas id="captchaCanvas" width="140" height="48" title="點我重整驗證碼"></canvas>
+          <div class="captcha-actions">
+            <button type="button" id="refreshCaptcha" class="btn">重整</button>
+          </div>
+        </div>
+        <div class="hint">驗證碼為 4 個英文字母，不分大小寫。</div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="width:100%; margin-top:10px;">登入（僅驗證碼判斷）</button>
+
+      <div id="msg" class="msg"></div>
+    </form>
+  </div>
+
+<script>
+  // ===== 驗證碼設定 =====
+  // 排除容易混淆字元：I, O（你也可自行調整）
+  const CAPTCHA_CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZ";
+  const CAPTCHA_LEN = 4;
+
+  let currentCaptcha = "";
+
+  function randInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function randomCaptchaText() {
+    let s = "";
+    for (let i = 0; i < CAPTCHA_LEN; i++) {
+      s += CAPTCHA_CHARS[randInt(0, CAPTCHA_CHARS.length - 1)];
+    }
+    return s;
+  }
+
+  function drawCaptcha(text) {
+    const canvas = document.getElementById("captchaCanvas");
+    const ctx = canvas.getContext("2d");
+    const w = canvas.width, h = canvas.height;
+
+    // 背景
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, w, h);
+
+    // 淺色背景格紋/漸層感（簡單做法：幾條淡線）
+    ctx.strokeStyle = "rgba(120, 140, 200, 0.12)";
+    for (let i = 0; i < 6; i++) {
+      ctx.beginPath();
+      ctx.moveTo(randInt(0, w), randInt(0, h));
+      ctx.lineTo(randInt(0, w), randInt(0, h));
+      ctx.stroke();
+    }
+
+    // 干擾線條（較明顯）
+    for (let i = 0; i < 5; i++) {
+      ctx.strokeStyle = `rgba(${randInt(40,180)},${randInt(40,180)},${randInt(40,180)},0.55)`;
+      ctx.lineWidth = randInt(1, 2);
+      ctx.beginPath();
+      ctx.moveTo(randInt(0, w), randInt(0, h));
+      ctx.bezierCurveTo(
+        randInt(0, w), randInt(0, h),
+        randInt(0, w), randInt(0, h),
+        randInt(0, w), randInt(0, h)
+      );
+      ctx.stroke();
+    }
+
+    // 雜點
+    for (let i = 0; i < 90; i++) {
+      ctx.fillStyle = `rgba(${randInt(0,200)},${randInt(0,200)},${randInt(0,200)},0.35)`;
+      ctx.fillRect(randInt(0, w), randInt(0, h), 1, 1);
+    }
+
+    // 文字：大小不一 + 角度不同 + 輕微上下偏移
+    const paddingLeft = 14;
+    const gap = 28; // 每個字母的水平間距
+    for (let i = 0; i < text.length; i++) {
+      const ch = text[i];
+
+      const fontSize = randInt(20, 32);         // 大小不一
+      const angle = (randInt(-25, 25) * Math.PI) / 180; // 旋轉
+      const x = paddingLeft + i * gap + randInt(-2, 2);
+      const y = randInt(28, 38);
+
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(angle);
+
+      ctx.font = `700 ${fontSize}px Arial`;
+      ctx.fillStyle = `rgb(${randInt(20,90)},${randInt(20,90)},${randInt(20,90)})`;
+
+      // 文字陰影（增加辨識難度與立體感）
+      ctx.shadowColor = "rgba(0,0,0,0.15)";
+      ctx.shadowBlur = 2;
+      ctx.shadowOffsetX = 1;
+      ctx.shadowOffsetY = 1;
+
+      ctx.fillText(ch, 0, 0);
+      ctx.restore();
+    }
+
+    // 邊框
+    ctx.strokeStyle = "#cfd3e1";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(0.5, 0.5, w - 1, h - 1);
+  }
+
+  function refreshCaptcha() {
+    currentCaptcha = randomCaptchaText();
+    drawCaptcha(currentCaptcha);
+    $("#captchaInput").val("").focus();
+    $("#msg").removeClass("ok err").text("");
+  }
+
+  function normalizeCaptchaInput(s) {
+    return String(s || "").trim().toUpperCase();
+  }
+
+  $(function () {
+    refreshCaptcha();
+
+    $("#refreshCaptcha, #captchaCanvas").on("click", function () {
+      refreshCaptcha();
+    });
+
+    $("#loginForm").on("submit", function (e) {
+      e.preventDefault();
+
+      const userInput = normalizeCaptchaInput($("#captchaInput").val());
+      const expected = normalizeCaptchaInput(currentCaptcha);
+
+      if (!userInput) {
+        $("#msg").removeClass("ok").addClass("err").text("請輸入驗證碼。");
+        return;
+      }
+
+      if (userInput !== expected) {
+        $("#msg").removeClass("ok").addClass("err").text("驗證碼錯誤，請再試一次。");
+        refreshCaptcha();
+        return;
+      }
+
+      $("#msg").removeClass("err").addClass("ok").text("驗證碼正確（此範例尚未做帳密登入判斷）。");
+      // 你後續可在這裡接登入 API / AJAX
+    });
+  });
+</script>
+</body>
+</html>
+
